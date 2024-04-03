@@ -1,9 +1,9 @@
 import React from "react";
 import { Text } from "react-native";
-import CreateAccount from "../component/Admin/CreateAccount";
-import CreateSubject from "../component/Admin/CreateSubject";
-import UserList from "../component/Admin/UserList";
-import ClassList from "../component/Admin/ClassList";
+import CreateAccount from "../components/Admin/CreateAccount";
+import CreateSubject from "../components/Admin/CreateSubject";
+import UserList from "../components/Admin/UserList";
+import ClassList from "../components/Admin/ClassList";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 const Tab = createBottomTabNavigator();
