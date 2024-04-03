@@ -8,13 +8,14 @@ import {
   StyleSheet,
   TouchableWithoutFeedback,
   View,
+  Text,
 } from "react-native";
 
-const LoginAdmin = () => {
+const Login = () => {
   const navigation = useNavigation();
-  let role = "teacher";
+  // let role = "teacher";
   // let role = "student";
-  // let role = "admin";
+  let role = "admin";
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <SafeAreaView style={styles.login}>
@@ -37,6 +38,9 @@ const LoginAdmin = () => {
               onPress={() => navigation.navigate("HomeStudent")}
             />
           )}
+          <Text onPress={() => navigation.navigate("ForgotPassword")}>
+            Forgot password?
+          </Text>
         </View>
       </SafeAreaView>
     </TouchableWithoutFeedback>
@@ -63,4 +67,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LoginAdmin;
+export default Login;

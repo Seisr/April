@@ -14,10 +14,11 @@ import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { Input } from "@rneui/base";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import LoginAdmin from "./screens/Admin/LoginAdmin";
+import Login from "./screens/Login";
 import HomeAdmin from "./screens/Admin/HomeAdmin";
 import HomeStudent from "./screens/Student/HomeStudent";
 import HomeTeacher from "./screens/Admin/HomeTeacher";
+import ForgotPassword from "./screens/ForgotPassword";
 
 // const Stack = createStackNavigator();
 const Stack = createNativeStackNavigator();
@@ -33,11 +34,12 @@ export default function App() {
     //   <SafeAreaView></SafeAreaView>
     // </View>
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="LoginAdmin" component={LoginAdmin} />
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="HomeAdmin" component={HomeAdmin} />
         <Stack.Screen name="HomeTeacher" component={HomeTeacher} />
         <Stack.Screen name="HomeStudent" component={HomeStudent} />
+        <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
       </Stack.Navigator>
     </NavigationContainer>
   );
