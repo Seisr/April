@@ -9,16 +9,15 @@ import {
   View,
 } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Screen1 from "./screens/Screen1";
-import Screen2 from "./screens/Screen2";
+
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { Input } from "@rneui/base";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import Home from "./screens/Home";
-import Login from "./screens/Login";
-
-const Tab = createBottomTabNavigator();
+import LoginAdmin from "./screens/Admin/LoginAdmin";
+import HomeAdmin from "./screens/Admin/HomeAdmin";
+import HomeStudent from "./screens/Student/HomeStudent";
+import HomeTeacher from "./screens/Admin/HomeTeacher";
 
 // const Stack = createStackNavigator();
 const Stack = createNativeStackNavigator();
@@ -35,8 +34,10 @@ export default function App() {
     // </View>
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="LoginAdmin" component={LoginAdmin} />
+        <Stack.Screen name="HomeAdmin" component={HomeAdmin} />
+        <Stack.Screen name="HomeTeacher" component={HomeTeacher} />
+        <Stack.Screen name="HomeStudent" component={HomeStudent} />
       </Stack.Navigator>
     </NavigationContainer>
   );

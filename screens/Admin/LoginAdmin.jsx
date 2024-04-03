@@ -1,4 +1,3 @@
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { Input } from "@rneui/base";
 import React from "react";
@@ -10,21 +9,34 @@ import {
   TouchableWithoutFeedback,
   View,
 } from "react-native";
-import Screen1 from "./Screen1";
-import Screen2 from "./Screen2";
 
-const Tab = createBottomTabNavigator();
-
-const Home = () => {
+const LoginAdmin = () => {
   const navigation = useNavigation();
-
+  let role = "teacher";
+  // let role = "student";
+  // let role = "admin";
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <SafeAreaView style={styles.login}>
         <View style={styles.login_input}>
           <Input placeholder="Username"></Input>
           <Input placeholder="Password"></Input>
-          <Button title="Login" onPress={() => navigation.navigate("Login")} />
+          {role === "admin" ? (
+            <Button
+              title="Login"
+              onPress={() => navigation.navigate("HomeAdmin")}
+            />
+          ) : role === "teacher" ? (
+            <Button
+              title="Login"
+              onPress={() => navigation.navigate("HomeTeacher")}
+            />
+          ) : (
+            <Button
+              title="Login"
+              onPress={() => navigation.navigate("HomeStudent")}
+            />
+          )}
         </View>
       </SafeAreaView>
     </TouchableWithoutFeedback>
@@ -51,4 +63,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Home;
+export default LoginAdmin;
