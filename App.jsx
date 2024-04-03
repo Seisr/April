@@ -24,15 +24,6 @@ import ForgotPassword from "./screens/ForgotPassword";
 const Stack = createNativeStackNavigator();
 export default function App() {
   return (
-    /* <NavigationContainer>
-          <Tab.Navigator>
-            <Tab.Screen name="screen1" component={Screen1} />
-            <Tab.Screen name="screen2" component={Screen2} />
-          </Tab.Navigator>
-        </NavigationContainer> */
-    // <View style={styles.container}>
-    //   <SafeAreaView></SafeAreaView>
-    // </View>
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Login" component={Login} />
