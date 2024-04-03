@@ -1,4 +1,5 @@
-import { useNavigation } from "@react-navigation/native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { Input } from "@rneui/base";
 import React from "react";
 import {
@@ -9,6 +10,10 @@ import {
   TouchableWithoutFeedback,
   View,
 } from "react-native";
+import Screen1 from "./Screen1";
+import Screen2 from "./Screen2";
+
+const Tab = createBottomTabNavigator();
 
 const Home = () => {
   const navigation = useNavigation();

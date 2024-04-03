@@ -33,9 +33,6 @@ export default function App() {
     // <View style={styles.container}>
     //   <SafeAreaView></SafeAreaView>
     // </View>
-    // <View>
-    //   <Input></Input>
-    // </View>
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="Home" component={Home} />
