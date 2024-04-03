@@ -1,14 +1,14 @@
 import React from "react";
 import { Text } from "react-native";
-import CreateAccount from "../../component/Admin/CreateAccount";
-import CreateSubject from "../../component/Admin/CreateSubject";
-import UserList from "../../component/Admin/UserList";
-import ClassList from "../../component/Admin/ClassList";
+import CreateAccount from "./CreateAccount";
+import CreateSubject from "./CreateSubject";
+import UserList from "./UserList";
+import ClassList from "./ClassList";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 const Tab = createBottomTabNavigator();
 
-const BottomTab = () => {
+const Profile = () => {
   return (
     <Tab.Navigator screenOptions={{ headerShown: false }}>
       <Tab.Screen name="createAccount" component={CreateAccount} />
@@ -19,4 +19,4 @@ const BottomTab = () => {
   );
 };
 
-export default BottomTab;
+export default Profile;
