@@ -16,7 +16,20 @@ const Drawer = createDrawerNavigator();
 
 const MainTeacher = () => {
   const navigation = useNavigation();
-
+  const confirmAlert = (props) => {
+    Alert.alert("Logging out", "Are you sure you want to log out?", [
+      {
+        text: "Yes",
+        onPress: () => {
+          props.navigation.navigate("Login");
+        },
+      },
+      {
+        text: "No",
+        onPress: () => {},
+      },
+    ]);
+  };
   return (
     <>
       <Drawer.Navigator
@@ -27,7 +40,9 @@ const MainTeacher = () => {
               <DrawerItemList {...props} />
               <DrawerItem
                 label="Logout"
-                onPress={() => props.navigation.navigate("Login")}
+                onPress={() => {
+                  confirmAlert(props);
+                }}
               />
             </DrawerContentScrollView>
           );
