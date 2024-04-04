@@ -15,9 +15,9 @@ import { Input } from "@rneui/base";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Login from "./screens/Login";
-import HomeAdmin from "./screens/Admin/HomeAdmin";
-import HomeStudent from "./screens/Student/HomeStudent";
-import HomeTeacher from "./screens/Teacher/HomeTeacher";
+import MainAdmin from "./screens/Admin/MainAdmin";
+import MainStudent from "./screens/Student/MainStudent";
+import MainTeacher from "./screens/Teacher/MainTeacher";
 import ForgotPassword from "./screens/ForgotPassword";
 import Register from "./screens/Register";
 
@@ -29,9 +29,9 @@ export default function App() {
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Register" component={Register} />
-        <Stack.Screen name="HomeAdmin" component={HomeAdmin} />
-        <Stack.Screen name="HomeTeacher" component={HomeTeacher} />
-        <Stack.Screen name="HomeStudent" component={HomeStudent} />
+        <Stack.Screen name="MainAdmin" component={MainAdmin} />
+        <Stack.Screen name="MainTeacher" component={MainTeacher} />
+        <Stack.Screen name="MainStudent" component={MainStudent} />
         <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
       </Stack.Navigator>
     </NavigationContainer>

@@ -10,10 +10,11 @@ import React from "react";
 import Profile from "../../components/Admin/Profile";
 import AboutUs from "../../components/Admin/AboutUs";
 import Setting from "../../components/Admin/Setting";
+import HomeAdmin from "../../components/Admin/HomeAdmin";
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
 
-const HomeAdmin = () => {
+const MainAdmin = () => {
   const navigation = useNavigation();
 
   return (
@@ -32,6 +33,7 @@ const HomeAdmin = () => {
           );
         }}
       >
+        <Drawer.Screen name="Home" component={HomeAdmin} />
         <Drawer.Screen name="Profile" component={Profile} />
         <Drawer.Screen name="Setting" component={Setting} />
         <Drawer.Screen name="AboutUs" component={AboutUs} />
@@ -40,4 +42,4 @@ const HomeAdmin = () => {
   );
 };
 
-export default HomeAdmin;
+export default MainAdmin;

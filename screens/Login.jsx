@@ -26,17 +26,17 @@ const Login = () => {
           {role === "admin" ? (
             <Button
               title="Login"
-              onPress={() => navigation.navigate("HomeAdmin")}
+              onPress={() => navigation.navigate("MainAdmin")}
             />
           ) : role === "teacher" ? (
             <Button
               title="Login"
-              onPress={() => navigation.navigate("HomeTeacher")}
+              onPress={() => navigation.navigate("MainTeacher")}
             />
           ) : (
             <Button
               title="Login"
-              onPress={() => navigation.navigate("HomeStudent")}
+              onPress={() => navigation.navigate("MainStudent")}
             />
           )}
           <Text onPress={() => navigation.navigate("ForgotPassword")}>

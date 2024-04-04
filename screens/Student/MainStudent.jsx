@@ -7,13 +7,14 @@ import {
 } from "@react-navigation/drawer";
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
-import AboutUsTeacher from "../../components/Teacher/AboutUsTeacher";
-import ProfileTeacher from "../../components/Teacher/ProfileTeacher";
-import SettingTeacher from "../../components/Teacher/SettingTeacher";
+import AboutUsStudent from "../../components/Student/AboutUsStudent";
+import ProfileStudent from "../../components/Student/ProfileStudent";
+import SettingStudent from "../../components/Student/SettingStudent";
+import HomeStudent from "../../components/Student/HomeStudent";
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
 
-const HomeTeacher = () => {
+const MainStudent = () => {
   const navigation = useNavigation();
 
   return (
@@ -32,12 +33,13 @@ const HomeTeacher = () => {
           );
         }}
       >
-        <Drawer.Screen name="ProfileTeacher" component={ProfileTeacher} />
-        <Drawer.Screen name="SettingTeacher" component={SettingTeacher} />
-        <Drawer.Screen name="AboutUsTeacher" component={AboutUsTeacher} />
+        <Drawer.Screen name="HomeStudent" component={HomeStudent} />
+        <Drawer.Screen name="ProfileStudent" component={ProfileStudent} />
+        <Drawer.Screen name="SettingStudent" component={SettingStudent} />
+        <Drawer.Screen name="AboutUsStudent" component={AboutUsStudent} />
       </Drawer.Navigator>
     </>
   );
 };
 
-export default HomeTeacher;
+export default MainStudent;
