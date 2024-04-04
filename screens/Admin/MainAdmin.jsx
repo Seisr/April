@@ -11,12 +11,27 @@ import Profile from "../../components/Admin/Profile";
 import AboutUs from "../../components/Admin/AboutUs";
 import Setting from "../../components/Admin/Setting";
 import HomeAdmin from "../../components/Admin/HomeAdmin";
+import { Alert } from "react-native";
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
 
 const MainAdmin = () => {
   const navigation = useNavigation();
 
+  const confirmAlert = (props) => {
+    Alert.alert("Logging out", "Are you sure you want to log out?", [
+      {
+        text: "Yes",
+        onPress: () => {
+          props.navigation.navigate("Login");
+        },
+      },
+      {
+        text: "No",
+        onPress: () => {},
+      },
+    ]);
+  };
   return (
     <>
       <Drawer.Navigator
@@ -27,7 +42,9 @@ const MainAdmin = () => {
               <DrawerItemList {...props} />
               <DrawerItem
                 label="Logout"
-                onPress={() => props.navigation.navigate("Login")}
+                onPress={() => {
+                  confirmAlert(props);
+                }}
               />
             </DrawerContentScrollView>
           );
