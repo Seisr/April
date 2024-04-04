@@ -8,8 +8,8 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import Profile from "../../components/Admin/Profile";
-import AboutUs from "../AboutUs";
-import Setting from "../Setting";
+import AboutUs from "../../components/Admin/AboutUs";
+import Setting from "../../components/Admin/Setting";
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
 
@@ -18,20 +18,6 @@ const HomeAdmin = () => {
 
   return (
     <>
-      {/* <Drawer.Navigator initialRouteName="BottomTab">
-        <Drawer.Screen name="Profile" component={Profile} />
-        <Drawer.Screen name="Setting" component={Setting} />
-        <Drawer.Screen name="AboutUs" component={AboutUs} />
-        <Drawer.Screen
-          name="Logout"
-          component={Logout}
-          onPress={() => {
-            navigation.navigate("Login");
-          }}
-        />
-        <DrawerItem label="logout2" onPress={()=> }
-      </Drawer.Navigator> */}
-
       <Drawer.Navigator
         initialRouteName="Home"
         drawerContent={(props) => {

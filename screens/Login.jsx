@@ -14,9 +14,9 @@ import Register from "./Register";
 
 const Login = () => {
   const navigation = useNavigation();
-  // let role = "teacher";
+  let role = "teacher";
   // let role = "student";
-  let role = "admin";
+  // let role = "admin";
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <SafeAreaView style={styles.login}>

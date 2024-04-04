@@ -1,15 +1,14 @@
 import React from "react";
 import { Text } from "react-native";
-import CreateAccount from "../components/Admin/CreateAccount";
-import CreateSubject from "../components/Admin/CreateSubject";
-import UserList from "../components/Admin/UserList";
-import ClassList from "../components/Admin/ClassList";
+import CreateAccount from "./CreateAccount";
+import CreateSubject from "./CreateSubject";
+import UserList from "./UserList";
+import ClassList from "./ClassList";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icon from "react-native-vector-icons/Ionicons";
 
 const Tab = createBottomTabNavigator();
-
-const DrawerSide = () => {
+const AboutUs = () => {
   return (
     <Tab.Navigator screenOptions={{ headerShown: false }}>
       <Tab.Screen
@@ -44,4 +43,4 @@ const DrawerSide = () => {
   );
 };
 
-export default DrawerSide;
+export default AboutUs;

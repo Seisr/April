@@ -7,9 +7,9 @@ import {
 } from "@react-navigation/drawer";
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
-import Profile from "../../components/Admin/Profile";
-import AboutUs from "../AboutUs";
-import Setting from "../Setting";
+import AboutUsTeacher from "../../components/Teacher/AboutUsTeacher";
+import ProfileTeacher from "../../components/Teacher/ProfileTeacher";
+import SettingTeacher from "../../components/Teacher/SettingTeacher";
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
 
@@ -18,20 +18,6 @@ const HomeTeacher = () => {
 
   return (
     <>
-      {/* <Drawer.Navigator initialRouteName="BottomTab">
-        <Drawer.Screen name="Profile" component={Profile} />
-        <Drawer.Screen name="Setting" component={Setting} />
-        <Drawer.Screen name="AboutUs" component={AboutUs} />
-        <Drawer.Screen
-          name="Logout"
-          component={Logout}
-          onPress={() => {
-            navigation.navigate("Login");
-          }}
-        />
-        <DrawerItem label="logout2" onPress={()=> }
-      </Drawer.Navigator> */}
-
       <Drawer.Navigator
         initialRouteName="Home"
         drawerContent={(props) => {
@@ -46,9 +32,9 @@ const HomeTeacher = () => {
           );
         }}
       >
-        <Drawer.Screen name="Profile" component={Profile} />
-        <Drawer.Screen name="Setting" component={Setting} />
-        <Drawer.Screen name="AboutUs" component={AboutUs} />
+        <Drawer.Screen name="ProfileTeacher" component={ProfileTeacher} />
+        <Drawer.Screen name="SettingTeacher" component={SettingTeacher} />
+        <Drawer.Screen name="AboutUsTeacher" component={AboutUsTeacher} />
       </Drawer.Navigator>
     </>
   );
