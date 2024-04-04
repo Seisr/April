@@ -10,41 +10,21 @@ import {
   View,
   Text,
 } from "react-native";
-import Register from "./Register";
+import Login from "./Login";
 
-const Login = () => {
+const Register = () => {
   const navigation = useNavigation();
-  // let role = "teacher";
-  // let role = "student";
-  let role = "admin";
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <SafeAreaView style={styles.login}>
         <View style={styles.login_input}>
           <Input placeholder="Username"></Input>
           <Input placeholder="Password"></Input>
-          {role === "admin" ? (
-            <Button
-              title="Login"
-              onPress={() => navigation.navigate("HomeAdmin")}
-            />
-          ) : role === "teacher" ? (
-            <Button
-              title="Login"
-              onPress={() => navigation.navigate("HomeTeacher")}
-            />
-          ) : (
-            <Button
-              title="Login"
-              onPress={() => navigation.navigate("HomeStudent")}
-            />
-          )}
-          <Text onPress={() => navigation.navigate("ForgotPassword")}>
-            Forgot password?
-          </Text>
+          <Input placeholder="Name"></Input>
+          <Input placeholder="Role"></Input>
           <Button
             title="Register"
-            onPress={() => navigation.navigate("Register")}
+            onPress={() => navigation.navigate("Login")}
           />
         </View>
       </SafeAreaView>
@@ -72,4 +52,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Login;
+export default Register;

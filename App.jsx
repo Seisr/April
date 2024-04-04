@@ -17,8 +17,9 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Login from "./screens/Login";
 import HomeAdmin from "./screens/Admin/HomeAdmin";
 import HomeStudent from "./screens/Student/HomeStudent";
-import HomeTeacher from "./screens/Admin/HomeTeacher";
+import HomeTeacher from "./screens/Teacher/HomeTeacher";
 import ForgotPassword from "./screens/ForgotPassword";
+import Register from "./screens/Register";
 
 // const Stack = createStackNavigator();
 const Stack = createNativeStackNavigator();
@@ -27,6 +28,7 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Register" component={Register} />
         <Stack.Screen name="HomeAdmin" component={HomeAdmin} />
         <Stack.Screen name="HomeTeacher" component={HomeTeacher} />
         <Stack.Screen name="HomeStudent" component={HomeStudent} />
