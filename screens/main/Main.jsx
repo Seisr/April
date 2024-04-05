@@ -9,19 +9,50 @@ import { useNavigation } from "@react-navigation/native";
 const Stack = createNativeStackNavigator();
 
 const Main = () => {
-  let role = "admin";
+  // let role = "admin";
   const navigation = useNavigation();
 
   // let role = "teacher";
-  // let role = "student";
+  let role = "student";
   return (
     <SafeAreaView style={styles.container}>
-      <Button title="Users" onPress={() => navigation.navigate("Users")} />
-      <Button
-        title="Subjects"
-        onPress={() => navigation.navigate("Subjects")}
-      />
-      <Button title="Classes" onPress={() => navigation.navigate("Classes")} />
+      {role === "admin" && (
+        <>
+          <Button title="Users" onPress={() => navigation.navigate("Users")} />
+          <Button
+            title="Subjects"
+            onPress={() => navigation.navigate("Subjects")}
+          />
+          <Button
+            title="Classes"
+            onPress={() => navigation.navigate("Classes")}
+          />
+        </>
+      )}
+      {role === "teacher" && (
+        <>
+          <Button
+            title="CreateClass"
+            onPress={() => navigation.navigate("CreateClass")}
+          />
+          <Button
+            title="Classes"
+            onPress={() => navigation.navigate("Classes")}
+          />
+        </>
+      )}
+      {role === "student" && (
+        <>
+          <Button
+            title="EnrollCourses"
+            onPress={() => navigation.navigate("EnrollCourses")}
+          />
+          <Button
+            title="Classes"
+            onPress={() => navigation.navigate("Classes")}
+          />
+        </>
+      )}
     </SafeAreaView>
   );
 };

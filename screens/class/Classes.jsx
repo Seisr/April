@@ -1,8 +1,16 @@
 import React from "react";
-import { Text } from "react-native";
+import { SafeAreaView, Text } from "react-native";
 
 const Classes = () => {
-  return <Text>Classes</Text>;
+  let role = "admin";
+  //   let role = "teacher";
+  //   let role = "student";
+  return (
+    <SafeAreaView>
+      {role === "student" && <Text>Student Classes</Text>}
+      {role !== "student" && <Text>Admin/Teacher Classes</Text>}
+    </SafeAreaView>
+  );
 };
 
 export default Classes;

@@ -1,12 +1,12 @@
 import React from "react";
 import { SafeAreaView, Text } from "react-native";
 
-const Subjects = () => {
+const EnrollCourses = () => {
   return (
     <SafeAreaView>
-      <Text>Subjects</Text>
+      <Text>Enroll Course</Text>
     </SafeAreaView>
   );
 };
 
-export default Subjects;
+export default EnrollCourses;
