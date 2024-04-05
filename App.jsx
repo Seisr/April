@@ -1,26 +1,13 @@
-import { StatusBar } from "expo-status-bar";
-import {
-  Button,
-  Keyboard,
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  TouchableWithoutFeedback,
-  View,
-} from "react-native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { StyleSheet } from "react-native";
 
-import { NavigationContainer, useNavigation } from "@react-navigation/native";
-import { Input } from "@rneui/base";
-import { createStackNavigator } from "@react-navigation/stack";
+import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Login from "./screens/Login";
-import MainAdmin from "./screens/Admin/MainAdmin";
-import MainStudent from "./screens/Student/MainStudent";
-import MainTeacher from "./screens/Teacher/MainTeacher";
 import ForgotPassword from "./screens/ForgotPassword";
-import Register from "./screens/Register";
-
+import Main from "./screens/main/Main";
+import Users from "./screens/users/Users";
+import Subjects from "./screens/subject/Subjects";
+import Classes from "./screens/class/Classes";
 // const Stack = createStackNavigator();
 const Stack = createNativeStackNavigator();
 export default function App() {
@@ -28,11 +15,11 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="Register" component={Register} />
-        <Stack.Screen name="MainAdmin" component={MainAdmin} />
-        <Stack.Screen name="MainTeacher" component={MainTeacher} />
-        <Stack.Screen name="MainStudent" component={MainStudent} />
+        <Stack.Screen name="Main" component={Main} />
         <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
+        <Stack.Screen name="Users" component={Users} />
+        <Stack.Screen name="Subjects" component={Subjects} />
+        <Stack.Screen name="Classes" component={Classes} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -10,7 +10,7 @@ import {
   View,
   Text,
 } from "react-native";
-import Register from "./Register";
+import ForgotPassword from "./ForgotPassword";
 
 const Login = () => {
   const navigation = useNavigation();
@@ -23,29 +23,10 @@ const Login = () => {
         <View style={styles.login_input}>
           <Input placeholder="Username"></Input>
           <Input placeholder="Password"></Input>
-          {role === "admin" ? (
-            <Button
-              title="Login"
-              onPress={() => navigation.navigate("MainAdmin")}
-            />
-          ) : role === "teacher" ? (
-            <Button
-              title="Login"
-              onPress={() => navigation.navigate("MainTeacher")}
-            />
-          ) : (
-            <Button
-              title="Login"
-              onPress={() => navigation.navigate("MainStudent")}
-            />
-          )}
+          <Button title="Login" onPress={() => navigation.navigate("Main")} />
           <Text onPress={() => navigation.navigate("ForgotPassword")}>
             Forgot password?
           </Text>
-          <Button
-            title="Register"
-            onPress={() => navigation.navigate("Register")}
-          />
         </View>
       </SafeAreaView>
     </TouchableWithoutFeedback>
