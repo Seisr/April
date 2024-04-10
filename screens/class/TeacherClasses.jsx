@@ -2,21 +2,21 @@ import React from "react";
 import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 
-const EnrollCourses = () => {
+const TeacherClasses = () => {
   return (
     <SafeAreaView style={styles.container}>
-      {/* <View>
-        <Text></Text>
-      </View> */}
       <View>
         <Text>
-          Course_Id <Icon name="create-outline" />
+          Class_Id <Icon name="newspaper-outline" />
+          <Icon name="create-outline" />
         </Text>
         <Text>
-          Course_Id <Icon name="create-outline" />
+          Class_Id <Icon name="newspaper-outline" />
+          <Icon name="create-outline" />
         </Text>
         <Text>
-          Course_Id <Icon name="create-outline" />
+          Class_Id <Icon name="newspaper-outline" />
+          <Icon name="create-outline" />
         </Text>
       </View>
     </SafeAreaView>
@@ -43,4 +43,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default EnrollCourses;
+export default TeacherClasses;
