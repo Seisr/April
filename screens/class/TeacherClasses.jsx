@@ -19,6 +19,11 @@ const TeacherClasses = () => {
           <Icon name="create-outline" />
         </Text>
       </View>
+      <View style={styles.create_new_class}>
+        <Text>
+          <Icon name="add-outline" /> Create New Class
+        </Text>
+      </View>
     </SafeAreaView>
   );
 };
@@ -40,6 +45,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     padding: 50,
+  },
+  create_new_class: {
+    marginTop: 300,
+    alignItems: "flex-end",
   },
 });
 
