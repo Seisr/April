@@ -1,8 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
+import AprilService from "../../services/AprilServices";
 
 const EnrollCourses = () => {
+  const [classes, setClasses] = useState("");
+
+  const retrieveClasses = () => {
+    AprilService.getAllClasses()
+      .then((res) => {
+        setClasses(res);
+        console.log(res);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  useEffect(() => {
+    retrieveClasses();
+  });
+  console.log(classes);
+
   return (
     <SafeAreaView style={styles.container}>
       {/* <View>

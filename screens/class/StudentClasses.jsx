@@ -1,7 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { SafeAreaView, StyleSheet, Text, View } from "react-native";
+import AprilService from "../../services/AprilServices";
 
 const StudentClasses = () => {
+  const [classDetail, setClassDetail] = useState("");
+
+  const retrieveClassDetail = () => {
+    AprilService.getAllClassDetail()
+      .then((res) => {
+        setClassDetail(res.data);
+        console.log(res);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  useEffect(() => {
+    retrieveClassDetail();
+  });
+
+  console.log(classDetail);
+
   return (
     <SafeAreaView style={styles.container}>
       <Text>TeacherClasses</Text>
