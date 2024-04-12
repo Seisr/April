@@ -66,7 +66,7 @@ export const AprilService = {
 
   // Class-details
 
-  getAllClassDetail: () => {
+  getAllClassDetail: async () => {
     return axios.get(`${url}/class-details`, {
       headers: await get_header(),
     });
