@@ -1,17 +1,14 @@
 import axios from "axios";
-import { url, get_header } from "../setting";
-
-token =
-  "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjBiYzljNmMxNWQ0YTMxNDAwZDViMzciLCJpYXQiOjE3MTI4MzgyNTEsImV4cCI6MTcxMjkyNDY1MX0.FnDqUrg1fYmPPxOngkKq7FXJsEV19M9i98_AD3mMgrU";
+import { beHOST } from "../../setting";
+import { get_header } from "./Auth";
 
 export const AprilService = {
-  // Auth
-
-  login: async (data) => {
-    return axios.post(`${url}/auth/login`, data);
+  login: async (email, password) => {
+    return await axios.post(`${beHOST}/auth/login`, { email, password });
   },
-
-  // Users
+  forgotPassword: async (email) => {
+    return await axios.post(`${beHOST}/auth/forgot-password`, { email });
+  },
 
   getAllUsers: async () => {
     return axios.get(`${url}/users/`, {
@@ -43,7 +40,7 @@ export const AprilService = {
 
   getAllClasses: async () => {
     return axios.get(`${url}/classes`, {
-      headers: { authorization: token },
+      headers: await get_header(),
     });
   },
   getClassesById: async (id) => {
@@ -69,9 +66,9 @@ export const AprilService = {
 
   // Class-details
 
-  getAllClassDetail: () => {
+  getAllClassDetail: async () => {
     return axios.get(`${url}/class-details`, {
-      headers: { authorization: token },
+      headers: await get_header(),
     });
   },
 
@@ -124,5 +121,3 @@ export const AprilService = {
     });
   },
 };
-
-export default AprilService;

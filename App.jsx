@@ -2,14 +2,13 @@ import { StyleSheet } from "react-native";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import Login from "./screens/Login";
-import ForgotPassword from "./screens/ForgotPassword";
-import Main from "./screens/main/Main";
-import Users from "./screens/users/Users";
-import Subjects from "./screens/subject/Subjects";
-import Classes from "./screens/class/Classes";
-import CreateClass from "./screens/class/CreateClass";
-import EnrollCourses from "./screens/class/EnrollCourses";
+import Login from "./src/screens/Login";
+import Main from "./src/screens/main/Main";
+import Users from "./src/screens/users/Users";
+import Subjects from "./src/screens/subject/Subjects";
+import Classes from "./src/screens/class/Classes";
+import CreateClass from "./src/screens/class/CreateClass";
+import EnrollCourses from "./src/screens/class/EnrollCourses";
 // const Stack = createStackNavigator();
 const Stack = createNativeStackNavigator();
 export default function App() {
@@ -18,7 +17,6 @@ export default function App() {
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Main" component={Main} />
-        <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
         <Stack.Screen name="Users" component={Users} />
         <Stack.Screen name="Subjects" component={Subjects} />
         <Stack.Screen name="Classes" component={Classes} />
