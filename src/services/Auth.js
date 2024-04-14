@@ -10,9 +10,10 @@ export const isAuthorzied = async () => {
       {},
       { headers: { Authorization: `Bearer ${token}` } }
     );
-    await SecureStore.setItemAsync(user, response.data);
+    await SecureStore.setItemAsync(user, JSON.stringify(response.data));
     return response.status == 200;
   } catch (error) {
+    console.log(error);
     return false;
   }
 };
