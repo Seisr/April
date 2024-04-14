@@ -11,27 +11,27 @@ export const AprilService = {
   },
 
   getAllUsers: async () => {
-    return axios.get(`${url}/users/`, {
+    return axios.get(`${beHOST}/users/`, {
       headers: await get_header(),
     });
   },
   getUserById: async (id) => {
-    return axios.get(`${url}/users/${id}`, {
+    return axios.get(`${beHOST}/users/${id}`, {
       headers: await get_header(),
     });
   },
   postUser: async (data) => {
-    return axios.post(`${url}/users`, data, {
+    return axios.post(`${beHOST}/users`, data, {
       headers: await get_header(),
     });
   },
   patchUser: async (data) => {
-    return axios.patch(`${url}/users`, data, {
+    return axios.patch(`${beHOST}/users`, data, {
       headers: await get_header(),
     });
   },
   delUser: async (id) => {
-    return axios.delete(`${url}/users/${id}`, {
+    return axios.delete(`${beHOST}/users/${id}`, {
       headers: await get_header(),
     });
   },
@@ -39,27 +39,27 @@ export const AprilService = {
   // Classes
 
   getAllClasses: async () => {
-    return axios.get(`${url}/classes`, {
+    return await axios.get(`${beHOST}/classes`, {
       headers: await get_header(),
     });
   },
   getClassesById: async (id) => {
-    return axios.get(`${url}/classes/${id}`, {
+    return axios.get(`${beHOST}/classes/${id}`, {
       headers: await get_header(),
     });
   },
   postClasses: async (data) => {
-    return axios.post(`${url}/classes`, data, {
+    return axios.post(`${beHOST}/classes`, data, {
       headers: await get_header(),
     });
   },
   patchClasses: async (data) => {
-    return axios.patch(`${url}/classes`, data, {
+    return axios.patch(`${beHOST}/classes`, data, {
       headers: await get_header(),
     });
   },
   delClasses: async (id) => {
-    return axios.delete(`${url}/classes/${id}`, {
+    return axios.delete(`${beHOST}/classes/${id}`, {
       headers: await get_header(),
     });
   },
@@ -67,28 +67,28 @@ export const AprilService = {
   // Class-details
 
   getAllClassDetail: async () => {
-    return axios.get(`${url}/class-details`, {
+    return axios.get(`${beHOST}/class-details`, {
       headers: await get_header(),
     });
   },
 
   getClassDetailById: async (id) => {
-    return axios.get(`${url}/class-details/${id}`, {
+    return axios.get(`${beHOST}/class-details/${id}`, {
       headers: await get_header(),
     });
   },
   postClassDetail: async (data) => {
-    return axios.post(`${url}/class-details`, data, {
+    return axios.post(`${beHOST}/class-details`, data, {
       headers: await get_header(),
     });
   },
   patchClassDetail: async (data) => {
-    return axios.patch(`${url}/class-details`, data, {
+    return axios.patch(`${beHOST}/class-details`, data, {
       headers: await get_header(),
     });
   },
   delClassDetail: async () => {
-    return axios.delete(`${url}/class-details/${id}`, {
+    return axios.delete(`${beHOST}/class-details/${id}`, {
       headers: await get_header(),
     });
   },
@@ -96,27 +96,27 @@ export const AprilService = {
   // Subjects
 
   getAllSubjects: async () => {
-    return axios.get(`${url}/subjects`, {
+    return axios.get(`${beHOST}/subjects`, {
       headers: await get_header(),
     });
   },
   getSubjectsById: async (id) => {
-    return axios.get(`${url}/subjects/${id}`, {
+    return axios.get(`${beHOST}/subjects/${id}`, {
       headers: await get_header(),
     });
   },
   postSubjects: async (data) => {
-    return axios.post(`${url}/subjects`, data, {
+    return axios.post(`${beHOST}/subjects`, data, {
       headers: await get_header(),
     });
   },
   patchSubjects: async (data) => {
-    return axios.patch(`${url}/subjects`, data, {
+    return axios.patch(`${beHOST}/subjects`, data, {
       headers: await get_header(),
     });
   },
   delSubjects: async (id) => {
-    return axios.delete(`${url}/subjects/${id}`, {
+    return axios.delete(`${beHOST}/subjects/${id}`, {
       headers: await get_header(),
     });
   },

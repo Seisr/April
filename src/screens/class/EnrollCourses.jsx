@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { SafeAreaView, StyleSheet, Text, View } from "react-native";
+import { SafeAreaView, StyleSheet, Text, View, Button } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
-import AprilService from "../../services/AprilServices";
+import { AprilService } from "../../services/AprilServices";
 
 const EnrollCourses = () => {
-  const [classes, setClasses] = useState("");
+  const [classes, setClasses] = useState([]);
 
   const retrieveClasses = () => {
     AprilService.getAllClasses()
       .then((res) => {
-        setClasses(res);
-        console.log(res);
+        setClasses(res.data);
       })
       .catch((e) => {
         console.log(e);
@@ -19,24 +18,28 @@ const EnrollCourses = () => {
 
   useEffect(() => {
     retrieveClasses();
-  });
-  console.log(classes);
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* <View>
-        <Text></Text>
-      </View> */}
       <View>
-        <Text>
-          Course_Id <Icon name="create-outline" />
-        </Text>
-        <Text>
-          Course_Id <Icon name="create-outline" />
-        </Text>
-        <Text>
-          Course_Id <Icon name="create-outline" />
-        </Text>
+        {classes !== undefined &&
+          classes?.map((course, i) => {
+            return (
+              <SafeAreaView>
+                <View style={styles.container}>
+                  <View style={styles.row}>
+                    <Text style={styles.headerCell}>{course.codeName} </Text>
+                    <Text>
+                      {course.subject.name}
+                      {"      "}
+                    </Text>
+                    <Icon name="create-outline" style={styles.icon} size={15} />
+                  </View>
+                </View>
+              </SafeAreaView>
+            );
+          })}
       </View>
     </SafeAreaView>
   );
@@ -44,21 +47,29 @@ const EnrollCourses = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+    paddingTop: 35,
   },
-  login: {
-    flex: 1,
-    alignItem: "center",
-    justifyContent: "center",
+  row: {
+    flexDirection: "row",
+    // borderBottomWidth: 1,
+    borderBottomColor: "#ccc",
+    paddingVertical: 1,
   },
-  login_input: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    padding: 50,
+  headerCell: {
+    // flex: 1,
+    fontWeight: "bold",
+    // textAlign: "center",
+  },
+  cell: {
+    // flex: 1,
+    // textAlign: "center",
+  },
+  icon: {
+    // paddingBottom: 20,
   },
 });
 

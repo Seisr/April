@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { SafeAreaView, StyleSheet, Text, View } from "react-native";
-import AprilService from "../../services/AprilServices";
+import { Button, SafeAreaView, StyleSheet, Text, View } from "react-native";
+import { AprilService } from "../../services/AprilServices";
 
 const StudentClasses = () => {
-  const [classDetail, setClassDetail] = useState("");
+  const [classDetail, setClassDetail] = useState([]);
 
   const retrieveClassDetail = () => {
     AprilService.getAllClassDetail()
       .then((res) => {
         setClassDetail(res.data);
-        console.log(res);
       })
       .catch((e) => {
         console.log(e);
@@ -18,37 +17,67 @@ const StudentClasses = () => {
 
   useEffect(() => {
     retrieveClassDetail();
-  });
-
-  console.log(classDetail);
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text>TeacherClasses</Text>
-      <Text>TeacherClasses</Text>
-      <Text>TeacherClasses</Text>
-      <Text>TeacherClasses</Text>
+      <View>
+        {classDetail !== undefined &&
+          classDetail?.map((course, i) => {
+            return (
+              <SafeAreaView>
+                <View style={styles.container}>
+                  <View style={styles.row}>
+                    <Text style={styles.headerCell}>
+                      {course.class.codeName}{" "}
+                    </Text>
+                    <Text style={styles.headerCell}>Midterm </Text>
+                    <Text style={styles.headerCell}>Practical </Text>
+                    <Text style={styles.headerCell}>Final </Text>
+                    <Text style={styles.headerCell}>Average</Text>
+                  </View>
+                  <View style={styles.row1} key={i}>
+                    <Text>{"                                 "}</Text>
+                    <Text style={styles.gpa}>{course.midTerm} </Text>
+                    <Text style={styles.gpa}>{course.practical} </Text>
+                    <Text style={styles.gpa}>{course.final}</Text>
+                    <Text style={styles.gpa}>{course.average}</Text>
+                  </View>
+                </View>
+              </SafeAreaView>
+            );
+          })}
+      </View>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+    paddingTop: 25,
   },
-  login: {
-    flex: 1,
-    alignItem: "center",
-    justifyContent: "center",
+
+  headerCell: {
+    fontWeight: "bold",
   },
-  login_input: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    padding: 50,
+  row: {
+    flexDirection: "row",
+    borderBottomWidth: 1,
+    borderBottomColor: "#ccc",
+    // paddingVertical: 1,
+  },
+  row1: {
+    flexDirection: "row",
+    // borderBottomWidth: 1,
+    borderBottomColor: "#ccc",
+    // paddingVertical: 1,
+  },
+  gpa: {
+    paddingHorizontal: 20,
   },
 });
 export default StudentClasses;

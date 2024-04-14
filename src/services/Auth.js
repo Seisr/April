@@ -20,5 +20,5 @@ export const isAuthorzied = async () => {
 
 export const get_header = async () => {
   const token = await SecureStore.getItemAsync(accessToken);
-  return { Authorization: `Bearer ${token}` };
+  return { authorization: `Bearer ${token}` };
 };

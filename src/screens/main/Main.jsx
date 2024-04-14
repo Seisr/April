@@ -5,15 +5,26 @@ import Subjects from "../subject/Subjects";
 import Classes from "../class/Classes";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
-
+import { accessToken } from "../../../setting";
+import * as SecureStore from "expo-secure-store";
+import { AprilService } from "../../services/AprilServices";
 const Stack = createNativeStackNavigator();
 
 const Main = () => {
   // let role = "admin";
   const navigation = useNavigation();
 
-  // let role = "teacher";
   let role = "student";
+
+  const callData = async () => {
+    try {
+      let res = await AprilService.getAllClasses();
+      console.log(res.data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       {role === "admin" && (
@@ -39,6 +50,7 @@ const Main = () => {
             title="Classes"
             onPress={() => navigation.navigate("Classes")}
           />
+          <Button title="callToken" onPress={callData} />
         </>
       )}
       {role === "student" && (
