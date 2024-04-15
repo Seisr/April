@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { SafeAreaView, StyleSheet, Text, View } from "react-native";
+import {
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+  Modal,
+  TextInput,
+} from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { AprilService } from "../../services/AprilServices";
 import Button from "../../components/Button.js";
@@ -7,6 +14,10 @@ import { useNavigation } from "@react-navigation/native";
 
 const TeacherClasses = () => {
   const [classDetail, setClassDetail] = useState([]);
+  const [modal, setModal] = useState(false);
+  const show = () => setModal(true);
+  const hide = () => setModal(false);
+
   const navigation = useNavigation();
 
   const retrieveClassDetail = () => {
@@ -48,6 +59,42 @@ const TeacherClasses = () => {
             );
           })}
       </View>
+      <Button style={styles.button}>
+        <Text style={styles.buttonText} onPress={show}>
+          Create New Class
+        </Text>
+      </Button>
+      <Modal
+        visible={modal}
+        animationType="slide"
+        presentationStyle="pageSheet"
+      >
+        <View>
+          <SafeAreaView>
+            <View style={styles.container}>
+              <View style={styles.borderBox}>
+                <View>
+                  <Text style={styles.headerCell1}>Class</Text>
+                  <Text style={styles.headerCell}>Subject</Text>
+                  <Text style={styles.headerCell}>Teacher</Text>
+                  <Text style={styles.headerCell1}>Score Weight</Text>
+                  <Text style={styles.headerCell}>Midterm </Text>
+                  <Text style={styles.headerCell}>Practical </Text>
+                  <Text style={styles.headerCell}>Final </Text>
+                </View>
+                <View style={styles.modal}>
+                  <Button style={styles.button}>
+                    <Text style={styles.buttonText}>Create Class</Text>
+                  </Button>
+                  <Button style={styles.buttonCancel} onPress={hide}>
+                    <Text style={styles.buttonText}>Cancel</Text>
+                  </Button>
+                </View>
+              </View>
+            </View>
+          </SafeAreaView>
+        </View>
+      </Modal>
     </SafeAreaView>
   );
 };
@@ -59,6 +106,9 @@ const styles = StyleSheet.create({
   //   alignItems: "center",
   //   justifyContent: "center",
   // },
+  modal: {
+    flexDirection: "row",
+  },
   create_new_class: {
     marginTop: 300,
     alignItems: "flex-end",
@@ -73,6 +123,10 @@ const styles = StyleSheet.create({
 
   headerCell: {
     fontWeight: "bold",
+  },
+  headerCell1: {
+    fontWeight: "bold",
+    textAlign: "center",
   },
   row: {
     flexDirection: "row",
@@ -98,13 +152,32 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingVertical: 10,
     alignItems: "center",
-    marginTop: 48,
     marginBottom: 12,
+    width: 180,
   },
   buttonText: {
     color: "#023047",
     fontWeight: "bold",
     fontSize: 16,
+  },
+  buttonCancel: {
+    backgroundColor: "grey",
+    borderRadius: 8,
+    paddingVertical: 10,
+    alignItems: "center",
+    marginBottom: 12,
+    width: 180,
+    marginLeft: 10,
+  },
+  textInput: {
+    height: 40,
+    width: 200,
+    borderColor: "gray",
+    borderWidth: 1,
+    borderRadius: 8,
+    paddingHorizontal: 10,
+    paddingLeft: 10,
+    marginLeft: 10,
   },
 });
 
