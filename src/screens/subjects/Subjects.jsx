@@ -57,18 +57,6 @@ const Subjects = () => {
                     <Text style={styles.headerCell}>
                       {course.class.codeName}{" "}
                     </Text>
-                    <Text style={styles.headerCell}>Mid </Text>
-                    <Text style={styles.headerCell}>Prac </Text>
-                    <Text style={styles.headerCell}>Fin </Text>
-                    <Text style={styles.headerCell}>Avg </Text>
-                    <Text>{"                              "}</Text>
-                  </View>
-                  <View style={styles.row1} key={i}>
-                    <Text>{"                     "}</Text>
-                    <Text style={styles.gpa}>{course.midTerm} </Text>
-                    <Text style={styles.gpa}>{course.practical} </Text>
-                    <Text style={styles.gpa}>{course.final}</Text>
-                    <Text style={styles.gpa}>{course.average}</Text>
                     <Icon
                       name="document-outline"
                       style={styles.icon}
@@ -97,14 +85,20 @@ const Subjects = () => {
         >
           <View>
             <View style={styles.box}>
-              <Text>Class ID</Text>
+              <Text>Subject ID</Text>
               <View style={styles.modal}>
-                <Text>Class name</Text>
-                <TextInput placeholder="StudentCode" style={styles.textInput} />
+                <Text style={styles.textName}>Subject</Text>
+                <TextInput
+                  placeholder="Subject Name"
+                  style={styles.textInput}
+                />
               </View>
               <View style={styles.modal}>
-                <Text>Description</Text>
-                <TextInput placeholder="Description" style={styles.textInput} />
+                <Text style={styles.textDes}>Description</Text>
+                <TextInput
+                  placeholder="Learn about fundamental programming langugage"
+                  style={styles.textDescription}
+                />
               </View>
             </View>
             <View style={styles.button1}>
@@ -204,9 +198,27 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     width: 180,
   },
+  textName: {
+    marginLeft: 25,
+  },
+  textDes: {
+    // marginLeft: 1,
+  },
   textInput: {
     height: 40,
-    width: 200,
+    width: 250,
+    borderColor: "gray",
+    borderWidth: 1,
+    borderRadius: 8,
+    paddingHorizontal: 10,
+    paddingLeft: 10,
+    marginLeft: 10,
+    marginVertical: 10,
+    // marginRight: 10,
+  },
+  textDescription: {
+    height: 200,
+    width: 250,
     borderColor: "gray",
     borderWidth: 1,
     borderRadius: 8,

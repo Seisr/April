@@ -14,8 +14,8 @@ import TeacherClasses from "../class/TeacherClasses.jsx";
 const Stack = createNativeStackNavigator();
 
 const Main = () => {
-  // let role = "admin";
-  let role = "teacher";
+  let role = "admin";
+  // let role = "teacher";
   // let role = "student";
   TeacherClasses;
   const navigation = useNavigation();

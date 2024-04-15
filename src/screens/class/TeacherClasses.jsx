@@ -73,23 +73,36 @@ const TeacherClasses = () => {
           <SafeAreaView>
             <View style={styles.container}>
               <View style={styles.borderBox}>
-                <View>
-                  <Text style={styles.headerCell1}>Class</Text>
+                <Text style={styles.headerCell1}>Class</Text>
+                <View style={styles.modal}>
                   <Text style={styles.headerCell}>Subject</Text>
-                  <Text style={styles.headerCell}>Teacher</Text>
-                  <Text style={styles.headerCell1}>Score Weight</Text>
-                  <Text style={styles.headerCell}>Midterm </Text>
-                  <Text style={styles.headerCell}>Practical </Text>
-                  <Text style={styles.headerCell}>Final </Text>
+                  <TextInput placeholder="Subject" style={styles.textInput} />
                 </View>
                 <View style={styles.modal}>
-                  <Button style={styles.button}>
-                    <Text style={styles.buttonText}>Create Class</Text>
-                  </Button>
-                  <Button style={styles.buttonCancel} onPress={hide}>
-                    <Text style={styles.buttonText}>Cancel</Text>
-                  </Button>
+                  <Text style={styles.headerCell}>Teacher</Text>
+                  <TextInput placeholder="Teacher" style={styles.textInput} />
                 </View>
+                <Text style={styles.headerCell1}>Score Weight</Text>
+                <View style={styles.modal}>
+                  <Text style={styles.headerCell}>Midterm </Text>
+                  <TextInput placeholder="20%" style={styles.textInput} />
+                </View>
+                <View style={styles.modal}>
+                  <Text style={styles.headerCell}>Practical </Text>
+                  <TextInput placeholder="30%" style={styles.textInput} />
+                </View>
+                <View style={styles.modal}>
+                  <Text style={styles.headerCell}>Final </Text>
+                  <TextInput placeholder="50%" style={styles.textInput} />
+                </View>
+              </View>
+              <View style={styles.modal}>
+                <Button style={styles.button}>
+                  <Text style={styles.buttonText}>Create Class</Text>
+                </Button>
+                <Button style={styles.buttonCancel} onPress={hide}>
+                  <Text style={styles.buttonText}>Cancel</Text>
+                </Button>
               </View>
             </View>
           </SafeAreaView>
@@ -108,6 +121,8 @@ const styles = StyleSheet.create({
   // },
   modal: {
     flexDirection: "row",
+    justifyContent: "space-between",
+    margin: 10,
   },
   create_new_class: {
     marginTop: 300,
@@ -123,6 +138,7 @@ const styles = StyleSheet.create({
 
   headerCell: {
     fontWeight: "bold",
+    margin: 10,
   },
   headerCell1: {
     fontWeight: "bold",

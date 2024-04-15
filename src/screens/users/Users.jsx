@@ -84,7 +84,7 @@ const Users = () => {
               <Text>User ID</Text>
               <View style={styles.modal}>
                 <Text>Email</Text>
-                <TextInput placeholder="StudentCode" style={styles.textInput} />
+                <TextInput placeholder="Email" style={styles.textInput} />
               </View>
               <View style={styles.modal2}>
                 <Text>Name</Text>
