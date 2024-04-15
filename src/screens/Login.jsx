@@ -1,11 +1,7 @@
-import { NavigationContainer, useNavigation } from "@react-navigation/native";
-// import { Input } from "@rneui/base";
+import { useNavigation } from "@react-navigation/native";
 import { React, useEffect, useState } from "react";
 import {
-  Keyboard,
-  SafeAreaView,
   StyleSheet,
-  TouchableWithoutFeedback,
   View,
   Text,
   TouchableOpacity,
@@ -27,7 +23,6 @@ const Login = () => {
   const [errors, setErrors] = useState({});
   const [isFormValid, setIsFormValid] = useState(false);
   const [isLoginValid, setIsLoginValid] = useState(false);
-
   useEffect(() => {
     validateForm();
   }, [email, password]);
@@ -72,7 +67,9 @@ const Login = () => {
         navigation.navigate("Main");
         return;
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
     errors.message = "Email or password is invalid!";
     setErrors(errors);
   };
@@ -96,14 +93,11 @@ const Login = () => {
   };
 
   return (
-    // <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
     <ImageBackground
       source={require("../assets/Login.png")}
       style={{ width: "100%", height: "100%" }}
     >
-      {/* <SafeAreaView style={styles.login}> */}
-      {/* <View style={styles.container}> */}
-      <Background>
+      <Background style={{ justifyContent: "center" }}>
         <Header style={styles.header}>Welcome to April</Header>
         <Text style={styles.underHeaderText}>
           Please login to your account !
@@ -144,8 +138,6 @@ const Login = () => {
           </Text>
         ))}
       </Background>
-      {/* </View>  */}
-      {/* </SafeAreaView> */}
     </ImageBackground>
     // </TouchableWithoutFeedback>
   );
@@ -192,7 +184,7 @@ const styles = StyleSheet.create({
   },
   forgotPassword: {
     fontSize: 16,
-    width: "80%",
+    width: "100%",
     alignItems: "center",
     marginBottom: 10,
   },
