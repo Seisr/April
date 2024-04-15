@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Login from "./src/screens/Login";
-import Main from "./src/screens/main/Main";
+import Main from "./src/screens/Main";
 import Users from "./src/screens/users/Users";
 import Subjects from "./src/screens/subjects/Subjects";
 import Classes from "./src/screens/class/Classes";
@@ -12,15 +12,32 @@ import EnrollCourses from "./src/screens/class/EnrollCourses";
 import TeacherClasses from "./src/screens/class/TeacherClasses";
 import EnrollCoursesDetail from "./src/screens/class/EnrollCoursesDetail";
 import AddStudent from "./src/screens/class/AddStudent";
+import { Header, MainHeader } from "./src/components/PageHeader";
 // const Stack = createStackNavigator();
 const Stack = createNativeStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="Main" component={Main} />
-        <Stack.Screen name="Users" component={Users} />
+      <Stack.Navigator screenOptions={{ headerShown: true }}>
+        <Stack.Screen
+          name="Login"
+          component={Login}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Main"
+          component={Main}
+          options={{
+            header: () => <MainHeader>Main</MainHeader>,
+          }}
+        />
+        <Stack.Screen
+          name="Users"
+          component={Users}
+          options={{
+            header: () => <Header>Users</Header>,
+          }}
+        />
         <Stack.Screen name="Subjects" component={Subjects} />
         <Stack.Screen name="Classes" component={Classes} />
         <Stack.Screen name="TeacherClasses" component={TeacherClasses} />
