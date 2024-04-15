@@ -1,7 +1,7 @@
 import React from "react";
 import { SafeAreaView, StyleSheet, Text } from "react-native";
 import Users from "../users/Users";
-import Subjects from "../subject/Subjects";
+import Subjects from "../subjects/Subjects.jsx";
 import Classes from "../class/Classes";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
@@ -14,8 +14,8 @@ import TeacherClasses from "../class/TeacherClasses.jsx";
 const Stack = createNativeStackNavigator();
 
 const Main = () => {
-  // let role = "admin";
-  let role = "teacher";
+  let role = "admin";
+  // let role = "teacher";
   // let role = "student";
   TeacherClasses;
   const navigation = useNavigation();

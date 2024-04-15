@@ -5,7 +5,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Login from "./src/screens/Login";
 import Main from "./src/screens/main/Main";
 import Users from "./src/screens/users/Users";
-import Subjects from "./src/screens/subject/Subjects";
+import Subjects from "./src/screens/subjects/Subjects";
 import Classes from "./src/screens/class/Classes";
 import CreateClass from "./src/screens/class/CreateClass";
 import EnrollCourses from "./src/screens/class/EnrollCourses";
