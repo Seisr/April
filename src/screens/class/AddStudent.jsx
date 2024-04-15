@@ -1,11 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { SafeAreaView, StyleSheet, Text, View, Alert } from "react-native";
+import {
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+  Alert,
+  Modal,
+  TextInput,
+} from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { AprilService } from "../../services/AprilServices";
 import Button from "../../components/Button.js";
 
 const AddStudent = () => {
   const [classDetail, setClassDetail] = useState([]);
+  const [modal, setModal] = useState(false);
+  const show = () => setModal(true);
+  const hide = () => setModal(false);
 
   const retrieveClassDetail = () => {
     AprilService.getAllClassDetail()
@@ -27,6 +38,8 @@ const AddStudent = () => {
       { text: "OK", onPress: () => console.log("OK Pressed") },
     ]);
   };
+
+  const addNewStudent = () => {};
 
   useEffect(() => {
     retrieveClassDetail();
@@ -73,8 +86,30 @@ const AddStudent = () => {
             );
           })}
         <Button style={styles.button}>
-          <Text style={styles.buttonText}>Add New Student</Text>
+          <Text style={styles.buttonText} onPress={show}>
+            Add New Student
+          </Text>
         </Button>
+        <Modal
+          visible={modal}
+          animationType="slide"
+          presentationStyle="pageSheet"
+        >
+          <View>
+            <View style={styles.modal}>
+              <Text>StudentCode</Text>
+              <TextInput placeholder="StudentCode" style={styles.textInput} />
+            </View>
+            <View style={styles.modal1}>
+              <Button style={styles.button}>
+                <Text style={styles.buttonText}>Add</Text>
+              </Button>
+              <Button style={styles.buttonCancel} onPress={hide}>
+                <Text style={styles.buttonText}>Cancel</Text>
+              </Button>
+            </View>
+          </View>
+        </Modal>
       </View>
     </SafeAreaView>
   );
@@ -87,6 +122,18 @@ const styles = StyleSheet.create({
   //   alignItems: "center",
   //   justifyContent: "center",
   // },
+  modal: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    paddingTop: 100,
+  },
+  modal1: {
+    // flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    // width: "70%",
+  },
   create_new_class: {
     marginTop: 300,
     alignItems: "flex-end",
@@ -128,11 +175,30 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 48,
     marginBottom: 12,
+    width: 200,
   },
   buttonText: {
     color: "#023047",
     fontWeight: "bold",
     fontSize: 16,
+  },
+  buttonCancel: {
+    backgroundColor: "grey",
+    borderRadius: 8,
+    paddingVertical: 10,
+    alignItems: "center",
+    marginBottom: 12,
+    width: 200,
+  },
+  textInput: {
+    height: 40,
+    width: 200,
+    borderColor: "gray",
+    borderWidth: 1,
+    borderRadius: 8,
+    paddingHorizontal: 10,
+    paddingLeft: 10,
+    marginLeft: 10,
   },
 });
 
