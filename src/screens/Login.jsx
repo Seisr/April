@@ -69,7 +69,6 @@ const Login = () => {
       await SecureStore.setItemAsync(accessToken, res.data.result.accessToken);
       if (await isAuthorzied()) {
         console.log("Login successfully!");
-        // console.log(await AprilService.getAllClasses());
         navigation.navigate("Main");
         return;
       }

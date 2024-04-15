@@ -9,6 +9,8 @@ import Subjects from "./src/screens/subject/Subjects";
 import Classes from "./src/screens/class/Classes";
 import CreateClass from "./src/screens/class/CreateClass";
 import EnrollCourses from "./src/screens/class/EnrollCourses";
+import TeacherClasses from "./src/screens/class/TeacherClasses";
+import EnrollCoursesDetail from "./src/screens/class/EnrollCoursesDetail";
 // const Stack = createStackNavigator();
 const Stack = createNativeStackNavigator();
 export default function App() {
@@ -20,8 +22,13 @@ export default function App() {
         <Stack.Screen name="Users" component={Users} />
         <Stack.Screen name="Subjects" component={Subjects} />
         <Stack.Screen name="Classes" component={Classes} />
+        <Stack.Screen name="TeacherClasses" component={TeacherClasses} />
         <Stack.Screen name="CreateClass" component={CreateClass} />
         <Stack.Screen name="EnrollCourses" component={EnrollCourses} />
+        <Stack.Screen
+          name="EnrollCoursesDetail"
+          component={EnrollCoursesDetail}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -1,35 +1,48 @@
 import React from "react";
-import { Button, SafeAreaView, StyleSheet } from "react-native";
+import { SafeAreaView, StyleSheet, Text } from "react-native";
 import Users from "../users/Users";
 import Subjects from "../subject/Subjects";
 import Classes from "../class/Classes";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
 import { accessToken } from "../../../setting";
+import Button from "../../components/Button.js";
 import * as SecureStore from "expo-secure-store";
 import { AprilService } from "../../services/AprilServices";
+import TeacherClasses from "../class/TeacherClasses.jsx";
+
 const Stack = createNativeStackNavigator();
 
 const Main = () => {
   // let role = "admin";
-  const navigation = useNavigation();
-
+  // let role = "teacher";
   let role = "student";
-
-  const callData = async () => {
-    try {
-      let res = await AprilService.getAllClasses();
-      console.log(res.data);
-    } catch (e) {
-      console.log(e);
-    }
-  };
+  TeacherClasses;
+  const navigation = useNavigation();
 
   return (
     <SafeAreaView style={styles.container}>
       {role === "admin" && (
         <>
-          <Button title="Users" onPress={() => navigation.navigate("Users")} />
+          <Button
+            style={styles.button}
+            onPress={() => navigation.navigate("Users")}
+          >
+            <Text style={styles.buttonText}>Users</Text>
+          </Button>
+          <Button
+            style={styles.button}
+            onPress={() => navigation.navigate("Subjects")}
+          >
+            <Text style={styles.buttonText}>Subjects</Text>
+          </Button>
+          <Button
+            style={styles.button}
+            onPress={() => navigation.navigate("TeacherClasses")}
+          >
+            <Text style={styles.buttonText}>Classes</Text>
+          </Button>
+          {/* <Button title="Users" onPress={() => navigation.navigate("Users")} />
           <Button
             title="Subjects"
             onPress={() => navigation.navigate("Subjects")}
@@ -37,32 +50,55 @@ const Main = () => {
           <Button
             title="Classes"
             onPress={() => navigation.navigate("Classes")}
-          />
+          /> */}
         </>
       )}
       {role === "teacher" && (
         <>
           <Button
-            title="CreateClass"
+            style={styles.button}
             onPress={() => navigation.navigate("CreateClass")}
-          />
+          >
+            <Text style={styles.buttonText}>CreateClass</Text>
+          </Button>
           <Button
-            title="Classes"
-            onPress={() => navigation.navigate("Classes")}
-          />
-          <Button title="callToken" onPress={callData} />
+            style={styles.button}
+            onPress={() => navigation.navigate("TeacherClasses")}
+          >
+            <Text style={styles.buttonText}>Classes</Text>
+          </Button>
         </>
+        // <Button
+        //   title="CreateClass"
+        //   onPress={() => navigation.navigate("CreateClass")}
+        // />
+        // <Button
+        //   title="Classes"
+        //   onPress={() => navigation.navigate("Classes")}
+        // />
       )}
       {role === "student" && (
         <>
-          <Button
+          {/* <Button
             title="EnrollCourses"
             onPress={() => navigation.navigate("EnrollCourses")}
-          />
-          <Button
+          /> */}
+          {/* <Button
             title="Classes"
             onPress={() => navigation.navigate("Classes")}
-          />
+          /> */}
+          <Button
+            style={styles.button}
+            onPress={() => navigation.navigate("EnrollCourses")}
+          >
+            <Text style={styles.buttonText}>EnrollCourses</Text>
+          </Button>
+          <Button
+            style={styles.button}
+            onPress={() => navigation.navigate("Classes")}
+          >
+            <Text style={styles.buttonText}>Classes</Text>
+          </Button>
         </>
       )}
     </SafeAreaView>
@@ -86,6 +122,20 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     padding: 50,
+  },
+  button: {
+    backgroundColor: "#F7C613",
+    borderRadius: 8,
+    paddingVertical: 10,
+    alignItems: "center",
+    marginTop: 16,
+    marginBottom: 12,
+    width: "75%",
+  },
+  buttonText: {
+    color: "#023047",
+    fontWeight: "bold",
+    fontSize: 16,
   },
 });
 

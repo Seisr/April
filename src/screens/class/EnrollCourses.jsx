@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import { SafeAreaView, StyleSheet, Text, View, Button } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { AprilService } from "../../services/AprilServices";
+import { useNavigation } from "@react-navigation/native";
 
+// import Button from "../../components/Button";
 const EnrollCourses = () => {
   const [classes, setClasses] = useState([]);
 
@@ -20,6 +22,8 @@ const EnrollCourses = () => {
     retrieveClasses();
   }, []);
 
+  const navigation = useNavigation();
+
   return (
     <SafeAreaView style={styles.container}>
       <View>
@@ -34,7 +38,12 @@ const EnrollCourses = () => {
                       {course.subject.name}
                       {"      "}
                     </Text>
-                    <Icon name="create-outline" style={styles.icon} size={15} />
+                    <Icon
+                      name="create-outline"
+                      style={styles.icon}
+                      size={20}
+                      onPress={() => navigation.navigate("EnrollCoursesDetail")}
+                    />
                   </View>
                 </View>
               </SafeAreaView>
@@ -63,6 +72,19 @@ const styles = StyleSheet.create({
     // flex: 1,
     fontWeight: "bold",
     // textAlign: "center",
+  },
+  button: {
+    backgroundColor: "#F7C613",
+    borderRadius: 8,
+    paddingVertical: 10,
+    alignItems: "center",
+    marginTop: 16,
+    marginBottom: 12,
+  },
+  buttonText: {
+    color: "#023047",
+    fontWeight: "bold",
+    fontSize: 16,
   },
   cell: {
     // flex: 1,
