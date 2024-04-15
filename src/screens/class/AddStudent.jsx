@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { SafeAreaView, StyleSheet, Text, View } from "react-native";
+import { SafeAreaView, StyleSheet, Text, View, Alert } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { AprilService } from "../../services/AprilServices";
 import Button from "../../components/Button.js";
@@ -15,6 +15,17 @@ const AddStudent = () => {
       .catch((e) => {
         console.log(e);
       });
+  };
+
+  const deleteAlert = () => {
+    Alert.alert("Delete", "Are you sure you want to delete this student?", [
+      {
+        text: "Cancel",
+        onPress: () => console.log("Cancel Pressed"),
+        style: "cancel",
+      },
+      { text: "OK", onPress: () => console.log("OK Pressed") },
+    ]);
   };
 
   useEffect(() => {
@@ -54,6 +65,7 @@ const AddStudent = () => {
                       name="trash-bin-outline"
                       style={styles.icon}
                       size={15}
+                      onPress={deleteAlert}
                     />
                   </View>
                 </View>
