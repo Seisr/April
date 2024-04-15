@@ -3,11 +3,9 @@ import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { AprilService } from "../../services/AprilServices";
 import Button from "../../components/Button.js";
-import { useNavigation } from "@react-navigation/native";
 
-const TeacherClasses = () => {
+const AddStudent = () => {
   const [classDetail, setClassDetail] = useState([]);
-  const navigation = useNavigation();
 
   const retrieveClassDetail = () => {
     AprilService.getAllClassDetail()
@@ -35,18 +33,36 @@ const TeacherClasses = () => {
                     <Text style={styles.headerCell}>
                       {course.class.codeName}{" "}
                     </Text>
+                    <Text style={styles.headerCell}>Mid </Text>
+                    <Text style={styles.headerCell}>Prac </Text>
+                    <Text style={styles.headerCell}>Fin </Text>
+                    <Text style={styles.headerCell}>Avg </Text>
+                    <Text>{"                              "}</Text>
+                  </View>
+                  <View style={styles.row1} key={i}>
+                    <Text>{"                     "}</Text>
+                    <Text style={styles.gpa}>{course.midTerm} </Text>
+                    <Text style={styles.gpa}>{course.practical} </Text>
+                    <Text style={styles.gpa}>{course.final}</Text>
+                    <Text style={styles.gpa}>{course.average}</Text>
                     <Icon
                       name="document-outline"
                       style={styles.icon}
                       size={15}
-                      onPress={() => navigation.navigate("AddStudent")}
                     />
-                    <Icon name="create-outline" style={styles.icon} size={15} />
+                    <Icon
+                      name="trash-bin-outline"
+                      style={styles.icon}
+                      size={15}
+                    />
                   </View>
                 </View>
               </SafeAreaView>
             );
           })}
+        <Button style={styles.button}>
+          <Text style={styles.buttonText}>Add New Student</Text>
+        </Button>
       </View>
     </SafeAreaView>
   );
@@ -108,4 +124,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TeacherClasses;
+export default AddStudent;

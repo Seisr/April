@@ -15,8 +15,8 @@ const Stack = createNativeStackNavigator();
 
 const Main = () => {
   // let role = "admin";
-  // let role = "teacher";
-  let role = "student";
+  let role = "teacher";
+  // let role = "student";
   TeacherClasses;
   const navigation = useNavigation();
 
