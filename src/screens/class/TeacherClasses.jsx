@@ -74,7 +74,9 @@ const TeacherClasses = () => {
                       name="document-outline"
                       style={styles.icon}
                       size={15}
-                      onPress={() => navigation.navigate("AddStudent")}
+                      onPress={() =>
+                        navigation.navigate("AddStudent", { id: course._id })
+                      }
                     />
                     <Icon name="create-outline" style={styles.icon} size={15} />
                   </View>

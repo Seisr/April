@@ -11,10 +11,16 @@ import {
 import Icon from "react-native-vector-icons/Ionicons";
 import { AprilService } from "../../services/AprilServices";
 import Button from "../../components/Button.js";
+import { useRoute } from "@react-navigation/native";
 
 const AddStudent = () => {
   const [classDetail, setClassDetail] = useState([]);
   const [modal, setModal] = useState(false);
+  const [studentId, setStudentId] = useState("");
+
+  // const [userId, setUserId] = useState("");
+  const { id } = route.params;
+
   const show = () => setModal(true);
   const hide = () => setModal(false);
 
@@ -37,6 +43,20 @@ const AddStudent = () => {
       },
       { text: "OK", onPress: () => console.log("OK Pressed") },
     ]);
+  };
+
+  // const getUserId = async () => {
+  //   const currUser = JSON.parse(await SecureStore.getItemAsync(user));
+  //   setUserId(currUser.userId);
+  // };
+
+  const postClassDetail = () => {
+    let data = {
+      student: studentId,
+      class: id,
+    };
+    AprilService.postClassDetail(data);
+    navigation.goBack();
   };
 
   const addNewStudent = () => {};
@@ -98,10 +118,14 @@ const AddStudent = () => {
           <View>
             <View style={styles.modal}>
               <Text>StudentCode</Text>
-              <TextInput placeholder="StudentCode" style={styles.textInput} />
+              <TextInput
+                placeholder="StudentCode"
+                style={styles.textInput}
+                onChangeText={setStudentId}
+              />
             </View>
             <View style={styles.modal1}>
-              <Button style={styles.button}>
+              <Button style={styles.button} onPress={postClassDetail}>
                 <Text style={styles.buttonText}>Add</Text>
               </Button>
               <Button style={styles.buttonCancel} onPress={hide}>
