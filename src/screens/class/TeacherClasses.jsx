@@ -15,6 +15,13 @@ import { useNavigation } from "@react-navigation/native";
 const TeacherClasses = () => {
   const [classes, setClasses] = useState([]);
   const [modal, setModal] = useState(false);
+  const [subjectId, setSubjectId] = useState("");
+  const [teacherId, setTeacherId] = useState("");
+  const [midterm, setMidterm] = useState(0);
+  const [practical, setPractical] = useState(0);
+  const [final, setFinal] = useState(0);
+  const [regEndDate, setRegEndDate] = useState("");
+
   const show = () => setModal(true);
   const hide = () => setModal(false);
 
@@ -30,9 +37,28 @@ const TeacherClasses = () => {
       });
   };
 
+  const postClasses = () => {
+    let data = {
+      subject: subjectId,
+      teacher: teacherId,
+      midTerm: parseFloat(midterm),
+      practical: parseFloat(practical),
+      final: parseFloat(final),
+      regEndDate: regEndDate,
+    };
+    console.log(data);
+    try {
+      AprilService.postClasses(data);
+    } catch (e) {
+      console.log(e);
+    }
+
+    hide();
+  };
+
   useEffect(() => {
     retrieveClasses();
-  }, []);
+  });
 
   return (
     <SafeAreaView style={styles.container}>
@@ -74,35 +100,56 @@ const TeacherClasses = () => {
                 <Text style={styles.headerCell1}>Class</Text>
                 <View style={styles.modal}>
                   <Text style={styles.headerCell}>Subject</Text>
-                  <TextInput placeholder="Subject" style={styles.textInput} />
+                  <TextInput
+                    placeholder="Subject"
+                    style={styles.textInput}
+                    onChangeText={setSubjectId}
+                  />
                 </View>
                 <View style={styles.modal}>
                   <Text style={styles.headerCell}>Teacher</Text>
-                  <TextInput placeholder="Teacher" style={styles.textInput} />
+                  <TextInput
+                    placeholder="Teacher"
+                    style={styles.textInput}
+                    onChangeText={setTeacherId}
+                  />
                 </View>
                 <Text style={styles.headerCell1}>Score Weight</Text>
                 <View style={styles.modal}>
                   <Text style={styles.headerCell}>Midterm </Text>
-                  <TextInput placeholder="20%" style={styles.textInput} />
+                  <TextInput
+                    placeholder="20%"
+                    style={styles.textInput}
+                    onChangeText={setMidterm}
+                  />
                 </View>
                 <View style={styles.modal}>
                   <Text style={styles.headerCell}>Practical </Text>
-                  <TextInput placeholder="30%" style={styles.textInput} />
+                  <TextInput
+                    placeholder="30%"
+                    style={styles.textInput}
+                    onChangeText={setPractical}
+                  />
                 </View>
                 <View style={styles.modal}>
                   <Text style={styles.headerCell}>Final </Text>
-                  <TextInput placeholder="50%" style={styles.textInput} />
+                  <TextInput
+                    placeholder="50%"
+                    style={styles.textInput}
+                    onChangeText={setFinal}
+                  />
                 </View>
                 <View style={styles.modal}>
                   <Text style={styles.headerCell}>Reg End Date </Text>
                   <TextInput
-                    placeholder="01-01-2024"
+                    placeholder="2024-05-30"
                     style={styles.textInput}
+                    onChangeText={setRegEndDate}
                   />
                 </View>
               </View>
               <View style={styles.modal}>
-                <Button style={styles.button}>
+                <Button style={styles.button} onPress={postClasses}>
                   <Text style={styles.buttonText}>Create Class</Text>
                 </Button>
                 <Button style={styles.buttonCancel} onPress={hide}>

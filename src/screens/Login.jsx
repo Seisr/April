@@ -119,6 +119,7 @@ const Login = () => {
           style={[styles.button, { opacity: isFormValid ? 1 : 0.5 }]}
           disabled={!isFormValid}
           onPress={handleSubmit}
+          // onPress={() => navigation.navigate("Main")}
         >
           <Text style={styles.buttonText}>Login</Text>
         </Button>

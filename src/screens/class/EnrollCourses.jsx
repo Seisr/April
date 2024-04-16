@@ -20,7 +20,7 @@ const EnrollCourses = () => {
 
   useEffect(() => {
     retrieveClasses();
-  }, []);
+  });
 
   const navigation = useNavigation();
 
@@ -30,7 +30,7 @@ const EnrollCourses = () => {
         {classes !== undefined &&
           classes?.map((course, i) => {
             return (
-              <SafeAreaView>
+              <SafeAreaView key={i}>
                 <View style={styles.container}>
                   <View style={styles.row} key={i}>
                     <Text style={styles.headerCell}>{course.codeName} </Text>

@@ -271,7 +271,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    paddingTop: 5,
+    // paddingTop: 5,
   },
   buttonText: {
     color: "#023047",
@@ -313,7 +313,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingLeft: 10,
     marginLeft: 10,
-    marginVertical: 10,
+    // marginVertical: 10,
   },
   box: {
     // flexDirection: "row",

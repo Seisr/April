@@ -14,6 +14,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useRoute } from "@react-navigation/native";
 const EnrollCoursesDetail = () => {
   const [classes, setClasses] = useState([]);
+  const [userId, setUserId] = useState("");
   const route = useRoute();
   const navigation = useNavigation();
 
@@ -26,6 +27,19 @@ const EnrollCoursesDetail = () => {
       .catch((e) => {
         console.log(e);
       });
+  };
+  const getUserId = async () => {
+    const currUser = JSON.parse(await SecureStore.getItemAsync(user));
+    setUserId(currUser.userId);
+  };
+
+  const postClassDetail = () => {
+    let data = {
+      student: userId,
+      class: id,
+    };
+    AprilService.postClassDetail(data);
+    navigation.goBack();
   };
 
   useEffect(() => {
@@ -91,7 +105,7 @@ const EnrollCoursesDetail = () => {
             </View>
           </View>
           <View style={styles.modal}>
-            <Button style={styles.button}>
+            <Button style={styles.button} onPress={postClassDetail}>
               <Text style={styles.buttonText}>Enroll</Text>
             </Button>
             <Button

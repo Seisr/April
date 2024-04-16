@@ -9,6 +9,7 @@ import { user } from "../../setting";
 const Stack = createNativeStackNavigator();
 
 const Main = () => {
+  // let role = "student";
   const [role, setRole] = useState("student");
   useEffect(() => {
     getRole();
