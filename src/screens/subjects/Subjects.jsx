@@ -34,14 +34,14 @@ const Subjects = () => {
       });
   };
 
-  const deleteAlert = () => {
+  const deleteAlert = (id) => {
     Alert.alert("Delete", "Are you sure you want to delete this subject?", [
       {
         text: "Cancel",
         onPress: () => console.log("Cancel Pressed"),
         style: "cancel",
       },
-      { text: "OK", onPress: () => console.log("OK Pressed") },
+      { text: "OK", onPress: () => AprilService.delSubjects(id) },
     ]);
   };
 
@@ -53,6 +53,10 @@ const Subjects = () => {
     AprilService.postSubjects(data);
   };
 
+  const deleteSubject = (id) => {
+    AprilService.deleteSubject(id);
+  };
+
   useEffect(() => {
     retrieveSubjects();
   });
@@ -62,7 +66,7 @@ const Subjects = () => {
       <View style={styles.container}>
         {subjects?.map((course, i) => {
           return (
-            <SafeAreaView key={i}>
+            <SafeAreaView key={course._id}>
               <View style={styles.container}>
                 <View style={styles.row}>
                   <Text style={styles.headerCell}>{course.code_name} </Text>
@@ -115,7 +119,7 @@ const Subjects = () => {
                     name="trash-bin-outline"
                     style={styles.icon}
                     size={15}
-                    onPress={deleteAlert}
+                    onPress={() => deleteAlert(course._id)}
                   />
                 </View>
               </View>
