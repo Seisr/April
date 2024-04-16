@@ -110,8 +110,8 @@ export const AprilService = {
       headers: await get_header(),
     });
   },
-  patchSubjects: async (data) => {
-    return axios.patch(`${beHOST}/subjects`, data, {
+  patchSubjects: async (id, data) => {
+    return axios.patch(`${beHOST}/subjects/${id}`, data, {
       headers: await get_header(),
     });
   },

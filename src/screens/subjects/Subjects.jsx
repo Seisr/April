@@ -20,6 +20,8 @@ const Subjects = () => {
   const [subjects, setSubjects] = useState([]);
   const [subject, setSubject] = useState("");
   const [desc, setDesc] = useState("");
+  const [subject2, setSubject2] = useState("");
+  const [desc2, setDesc2] = useState("");
   const [modal2, setModal2] = useState([]);
 
   const show2 = (id) => {
@@ -65,6 +67,15 @@ const Subjects = () => {
     setModal(false);
   };
 
+  const editSubject = (id) => {
+    let data = {
+      name: subject2,
+      description: desc2,
+    };
+    AprilService.patchSubjects(id, data);
+    hide2(id);
+  };
+
   useEffect(() => {
     retrieveSubjects();
   });
@@ -100,6 +111,7 @@ const Subjects = () => {
                             placeholder="Subject Name"
                             style={styles.textInput}
                             multiline={true}
+                            onChangeText={setSubject2}
                           >
                             {course.name}
                           </TextInput>
@@ -110,6 +122,7 @@ const Subjects = () => {
                             placeholder="Learn about fundamental programming langugage"
                             style={styles.textDescription}
                             multiline={true}
+                            onChangeText={setDesc2}
                           >
                             {course.description}
                           </TextInput>
@@ -117,7 +130,12 @@ const Subjects = () => {
                       </View>
                       <View style={styles.button1}>
                         <Button style={styles.button}>
-                          <Text style={styles.buttonText}>Edit</Text>
+                          <Text
+                            style={styles.buttonText}
+                            onPress={() => editSubject(course._id)}
+                          >
+                            Edit
+                          </Text>
                         </Button>
                         <Button
                           style={styles.buttonCancel}
