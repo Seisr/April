@@ -13,17 +13,17 @@ import Button from "../../components/Button.js";
 import { useNavigation } from "@react-navigation/native";
 
 const TeacherClasses = () => {
-  const [classDetail, setClassDetail] = useState([]);
+  const [classes, setClasses] = useState([]);
   const [modal, setModal] = useState(false);
   const show = () => setModal(true);
   const hide = () => setModal(false);
 
   const navigation = useNavigation();
 
-  const retrieveClassDetail = () => {
-    AprilService.getAllClassDetail()
+  const retrieveClasses = () => {
+    AprilService.getAllClasses()
       .then((res) => {
-        setClassDetail(res.data);
+        setClasses(res.data);
       })
       .catch((e) => {
         console.log(e);
@@ -31,21 +31,19 @@ const TeacherClasses = () => {
   };
 
   useEffect(() => {
-    retrieveClassDetail();
+    retrieveClasses();
   }, []);
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.container}>
-        {classDetail !== undefined &&
-          classDetail?.map((course, i) => {
+        {classes !== undefined &&
+          classes?.map((course, i) => {
             return (
               <SafeAreaView>
                 <View style={styles.container}>
-                  <View style={styles.row}>
-                    <Text style={styles.headerCell}>
-                      {course.class.codeName}{" "}
-                    </Text>
+                  <View style={styles.row2}>
+                    <Text style={styles.headerCell}>{course.codeName}</Text>
                     <Icon
                       name="document-outline"
                       style={styles.icon}
@@ -94,6 +92,13 @@ const TeacherClasses = () => {
                 <View style={styles.modal}>
                   <Text style={styles.headerCell}>Final </Text>
                   <TextInput placeholder="50%" style={styles.textInput} />
+                </View>
+                <View style={styles.modal}>
+                  <Text style={styles.headerCell}>Reg End Date </Text>
+                  <TextInput
+                    placeholder="01-01-2024"
+                    style={styles.textInput}
+                  />
                 </View>
               </View>
               <View style={styles.modal}>
@@ -144,6 +149,11 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
   },
+  headerCell2: {
+    justifyContent: "space-between",
+    fontWeight: "bold",
+    margin: 10,
+  },
   row: {
     flexDirection: "row",
     borderBottomWidth: 1,
@@ -156,12 +166,20 @@ const styles = StyleSheet.create({
     borderBottomColor: "#ccc",
     // paddingVertical: 1,
   },
+  row2: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    borderBottomWidth: 1,
+    borderBottomColor: "#ccc",
+    // paddingVertical: 1,
+  },
   gpa: {
     marginLeft: 15,
     // paddingHorizontal: 1,
   },
   icon: {
     paddingLeft: 20,
+    paddingTop: 11,
   },
   button: {
     backgroundColor: "#F7C613",

@@ -28,7 +28,7 @@ const Main = () => {
           <>
             <Menu page="Users" />
             <Menu page="Subjects" />
-            <Menu page="Classes" />
+            <Menu page="TeacherClasses" />
           </>
         )}
         {role === "teacher" && (

@@ -13,15 +13,18 @@ import { AprilService } from "../../services/AprilServices";
 import Button from "../../components/Button.js";
 
 const Subjects = () => {
-  const [classDetail, setClassDetail] = useState([]);
+  const [subjects, setSubjects] = useState([]);
   const [modal, setModal] = useState(false);
+  const [modal2, setModal2] = useState(false);
   const show = () => setModal(true);
   const hide = () => setModal(false);
+  const show2 = () => setModal2(true);
+  const hide2 = () => setModal2(false);
 
-  const retrieveClassDetail = () => {
-    AprilService.getAllClassDetail()
+  const retrieveSubjects = () => {
+    AprilService.getAllSubjects()
       .then((res) => {
-        setClassDetail(res.data);
+        setSubjects(res.data);
       })
       .catch((e) => {
         console.log(e);
@@ -29,7 +32,7 @@ const Subjects = () => {
   };
 
   const deleteAlert = () => {
-    Alert.alert("Delete", "Are you sure you want to delete this student?", [
+    Alert.alert("Delete", "Are you sure you want to delete this subject?", [
       {
         text: "Cancel",
         onPress: () => console.log("Cancel Pressed"),
@@ -42,26 +45,64 @@ const Subjects = () => {
   const addNewStudent = () => {};
 
   useEffect(() => {
-    retrieveClassDetail();
+    retrieveSubjects();
   }, []);
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.container}>
-        {classDetail !== undefined &&
-          classDetail?.map((course, i) => {
+        {subjects !== undefined &&
+          subjects?.map((course, i) => {
             return (
               <SafeAreaView>
                 <View style={styles.container}>
                   <View style={styles.row}>
-                    <Text style={styles.headerCell}>
-                      {course.class.codeName}{" "}
-                    </Text>
+                    <Text style={styles.headerCell}>{course.code_name} </Text>
                     <Icon
-                      name="document-outline"
+                      name="create-outline"
                       style={styles.icon}
                       size={15}
+                      onPress={show2}
                     />
+                    <Modal
+                      visible={modal2}
+                      animationType="slide"
+                      presentationStyle="pageSheet"
+                    >
+                      <View>
+                        <View style={styles.box}>
+                          <Text>{course.code_name}</Text>
+                          <View style={styles.modal}>
+                            <Text style={styles.textName}>Subject</Text>
+                            <TextInput
+                              placeholder="Subject Name"
+                              style={styles.textInput}
+                              multiline={true}
+                            >
+                              {course.name}
+                            </TextInput>
+                          </View>
+                          <View style={styles.modal}>
+                            <Text style={styles.textDes}>Description</Text>
+                            <TextInput
+                              placeholder="Learn about fundamental programming langugage"
+                              style={styles.textDescription}
+                              multiline={true}
+                            >
+                              {course.description}
+                            </TextInput>
+                          </View>
+                        </View>
+                        <View style={styles.button1}>
+                          <Button style={styles.button}>
+                            <Text style={styles.buttonText}>Edit</Text>
+                          </Button>
+                          <Button style={styles.buttonCancel} onPress={hide2}>
+                            <Text style={styles.buttonText}>Cancel</Text>
+                          </Button>
+                        </View>
+                      </View>
+                    </Modal>
                     <Icon
                       name="trash-bin-outline"
                       style={styles.icon}
@@ -91,13 +132,15 @@ const Subjects = () => {
                 <TextInput
                   placeholder="Subject Name"
                   style={styles.textInput}
+                  // multiline={true}
                 />
               </View>
               <View style={styles.modal}>
                 <Text style={styles.textDes}>Description</Text>
                 <TextInput
-                  placeholder="Learn about fundamental programming langugage"
+                  placeholder="Learn about fundamental programming language"
                   style={styles.textDescription}
+                  multiline={true}
                 />
               </View>
             </View>

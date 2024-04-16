@@ -64,7 +64,7 @@ const AddStudent = () => {
                     <Text>{"                              "}</Text>
                   </View>
                   <View style={styles.row1} key={i}>
-                    <Text>{"                     "}</Text>
+                    <Text>{"                                "}</Text>
                     <Text style={styles.gpa}>{course.midTerm} </Text>
                     <Text style={styles.gpa}>{course.practical} </Text>
                     <Text style={styles.gpa}>{course.final}</Text>
