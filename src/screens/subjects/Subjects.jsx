@@ -11,19 +11,30 @@ import {
 import Icon from "react-native-vector-icons/Ionicons";
 import { AprilService } from "../../services/AprilServices";
 import Button from "../../components/Button.js";
-
+import MyModal from "../../components/MyModal.js";
 const Subjects = () => {
+  const [modal, setModal] = useState(false);
+  const show = () => setModal(true);
+  const hide = () => setModal(false);
+
   const [subjects, setSubjects] = useState([]);
   const [subject, setSubject] = useState("");
   const [desc, setDesc] = useState("");
+  const [modal2, setModal2] = useState([]);
 
-  const [modal, setModal] = useState(false);
-  const [modal2, setModal2] = useState(false);
-  const show = () => setModal(true);
-  const hide = () => setModal(false);
-  const show2 = () => setModal2(true);
-  const hide2 = () => setModal2(false);
+  const show2 = (id) => {
+    setModal2((prevModals) => ({
+      ...prevModals,
+      [id]: true,
+    }));
+  };
 
+  const hide2 = (id) => {
+    setModal2((prevModals) => ({
+      ...prevModals,
+      [id]: false,
+    }));
+  };
   const retrieveSubjects = () => {
     AprilService.getAllSubjects()
       .then((res) => {
@@ -51,10 +62,7 @@ const Subjects = () => {
       description: desc,
     };
     AprilService.postSubjects(data);
-  };
-
-  const deleteSubject = (id) => {
-    AprilService.deleteSubject(id);
+    setModal(false);
   };
 
   useEffect(() => {
@@ -65,6 +73,7 @@ const Subjects = () => {
     <SafeAreaView style={styles.container}>
       <View style={styles.container}>
         {subjects?.map((course, i) => {
+          const modalVisible = modal2[course._id] || false;
           return (
             <SafeAreaView key={course._id}>
               <View style={styles.container}>
@@ -74,12 +83,13 @@ const Subjects = () => {
                     name="create-outline"
                     style={styles.icon}
                     size={15}
-                    onPress={show2}
+                    onPress={() => show2(course._id)}
                   />
                   <Modal
-                    visible={modal2}
+                    visible={modalVisible}
                     animationType="slide"
                     presentationStyle="pageSheet"
+                    key={course._id}
                   >
                     <View>
                       <View style={styles.box}>
@@ -109,7 +119,10 @@ const Subjects = () => {
                         <Button style={styles.button}>
                           <Text style={styles.buttonText}>Edit</Text>
                         </Button>
-                        <Button style={styles.buttonCancel} onPress={hide2}>
+                        <Button
+                          style={styles.buttonCancel}
+                          onPress={() => hide2(course._id)}
+                        >
                           <Text style={styles.buttonText}>Cancel</Text>
                         </Button>
                       </View>
