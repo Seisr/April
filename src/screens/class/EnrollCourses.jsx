@@ -32,17 +32,19 @@ const EnrollCourses = () => {
             return (
               <SafeAreaView>
                 <View style={styles.container}>
-                  <View style={styles.row}>
+                  <View style={styles.row} key={i}>
                     <Text style={styles.headerCell}>{course.codeName} </Text>
                     <Text>
                       {course.subject.name}
-                      {"      "}
+                      {"     "}
                     </Text>
                     <Icon
                       name="create-outline"
                       style={styles.icon}
                       size={20}
-                      onPress={() => navigation.navigate("EnrollCoursesDetail")}
+                      onPress={() =>
+                        navigation.navigate("EnrollCoursesDetail", { id: i })
+                      }
                     />
                   </View>
                 </View>

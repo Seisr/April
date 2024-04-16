@@ -9,7 +9,6 @@ import { user } from "../../setting";
 const Stack = createNativeStackNavigator();
 
 const Main = () => {
-  // let role = "admin";
   const [role, setRole] = useState("student");
   useEffect(() => {
     getRole();
@@ -34,14 +33,13 @@ const Main = () => {
         )}
         {role === "teacher" && (
           <>
-            <Menu page="CreateClass" />
-            <Menu page="Classes" />
+            <Menu page="TeacherClasses" />
           </>
         )}
         {role === "student" && (
           <>
             <Menu page="EnrollCourses" />
-            <Menu page="Classes" />
+            <Menu page="StudentClasses" />
           </>
         )}
       </Background>
