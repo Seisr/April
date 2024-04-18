@@ -14,6 +14,7 @@ import EnrollCoursesDetail from "./src/screens/class/EnrollCoursesDetail";
 import AddStudent from "./src/screens/class/AddStudent";
 import { Header, MainHeader } from "./src/components/PageHeader";
 import StudentClasses from "./src/screens/class/StudentClasses";
+import ModifyUsers from "./src/screens/users/ModifyUsers";
 // const Stack = createStackNavigator();
 const Stack = createNativeStackNavigator();
 export default function App() {
@@ -29,7 +30,7 @@ export default function App() {
           name="Main"
           component={Main}
           options={{
-            header: () => <MainHeader>Main</MainHeader>,
+            header: () => <Header mode="main">Main</Header>,
           }}
         />
         <Stack.Screen
@@ -41,6 +42,13 @@ export default function App() {
         />
         <Stack.Screen name="Subjects" component={Subjects} />
         <Stack.Screen name="Classes" component={Classes} />
+        <Stack.Screen
+          name="ModifyUsers"
+          component={ModifyUsers}
+          options={{
+            header: () => <Header>Profile</Header>,
+          }}
+        />
         <Stack.Screen name="TeacherClasses" component={TeacherClasses} />
         <Stack.Screen name="StudentClasses" component={StudentClasses} />
         <Stack.Screen name="AddStudent" component={AddStudent} />

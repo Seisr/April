@@ -25,8 +25,8 @@ export const AprilService = {
       headers: await get_header(),
     });
   },
-  patchUser: async (data) => {
-    return axios.patch(`${beHOST}/users`, data, {
+  patchUser: async (id, data) => {
+    return axios.patch(`${beHOST}/users/${id}`, data, {
       headers: await get_header(),
     });
   },
@@ -119,5 +119,19 @@ export const AprilService = {
     return axios.delete(`${beHOST}/subjects/${id}`, {
       headers: await get_header(),
     });
+  },
+  updateMe: async (data) => {
+    return axios.patch(`${beHOST}/users/me/`, data, {
+      headers: await get_header(),
+    });
+  },
+  getMe: async () => {
+    return axios.post(
+      `${beHOST}/auth/verify`,
+      {},
+      {
+        headers: await get_header(),
+      }
+    );
   },
 };
