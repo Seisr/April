@@ -1,153 +1,299 @@
 import React, { useEffect, useState } from "react";
 import {
-  SafeAreaView,
   StyleSheet,
-  Text,
   View,
-  Alert,
+  Text,
+  Image,
+  ImageBackground,
+  TouchableOpacity,
+  ScrollView,
   Modal,
-  TextInput,
+  TextInput as BaseTextInput,
 } from "react-native";
-import Icon from "react-native-vector-icons/Ionicons";
 import { AprilService } from "../../services/AprilServices";
-import Button from "../../components/Button.js";
+import { useNavigation, useIsFocused } from "@react-navigation/native";
+import { Picker } from "@react-native-picker/picker";
 
-const Users = () => {
-  const [classDetail, setClassDetail] = useState([]);
-  const [modal, setModal] = useState(false);
-  const show = () => setModal(true);
-  const hide = () => setModal(false);
-
-  const retrieveClassDetail = () => {
-    AprilService.getAllClassDetail()
-      .then((res) => {
-        setClassDetail(res.data);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+const User = ({ user }) => {
+  const navigation = useNavigation();
+  const [avt, setAvt] = useState(null);
+  const listImg = {
+    admin: require("../../assets/others/admin.png"),
+    student: require("../../assets/others/student.png"),
+    teacher: require("../../assets/others/teacher.png"),
   };
-
-  const deleteAlert = () => {
-    Alert.alert("Delete", "Are you sure you want to delete this student?", [
-      {
-        text: "Cancel",
-        onPress: () => console.log("Cancel Pressed"),
-        style: "cancel",
-      },
-      { text: "OK", onPress: () => console.log("OK Pressed") },
-    ]);
-  };
-
-  const addNewStudent = () => {};
-
   useEffect(() => {
-    retrieveClassDetail();
-  }, []);
+    setAvt(listImg[user.role]);
+  });
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.container}>
-        {classDetail !== undefined &&
-          classDetail?.map((course, i) => {
-            return (
-              <SafeAreaView>
-                <View style={styles.container}>
-                  <View style={styles.row}>
-                    <Text style={styles.headerCell}>UserID </Text>
-                    <Text style={styles.headerCell}>Avatar </Text>
-                    <Text style={styles.headerCell}>Name </Text>
-                    <Icon name="create-outline" style={styles.icon} size={15} />
-                    <Icon
-                      name="trash-bin-outline"
-                      style={styles.icon}
-                      size={15}
-                      onPress={deleteAlert}
-                    />
-                  </View>
-                </View>
-              </SafeAreaView>
-            );
-          })}
-        <Button style={styles.button}>
-          <Text style={styles.buttonText} onPress={show}>
-            Create New User
-          </Text>
-        </Button>
-        <Modal
-          visible={modal}
-          animationType="slide"
-          presentationStyle="pageSheet"
+    <View style={styles.user}>
+      <View style={styles.userLeft}>
+        <Image style={styles.userLeftImg} source={avt} />
+      </View>
+      <View style={styles.userMiddle}>
+        <Text style={styles.codeName}>{user.codeName}</Text>
+        <Text style={styles.displayName}>{user.displayName}</Text>
+      </View>
+      <View style={styles.userRight}>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("ModifyUsers", {
+              user: user,
+              _type: "update",
+            });
+          }}
         >
-          <View>
-            <View style={styles.box}>
-              <Text>User ID</Text>
-              <View style={styles.modal}>
-                <Text>Email</Text>
-                <TextInput placeholder="Email" style={styles.textInput} />
+          <Image
+            style={styles.userRightImg}
+            source={require("../../assets/figmaComponents/Edit.png")}
+          />
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+};
+
+const Users = ({}) => {
+  const roleList = [
+    { label: "Student", value: "student" },
+    { label: "Admin", value: "admin" },
+    { label: "Teacher", value: "teacher" },
+  ];
+  const [users, setUsers] = useState([]);
+  const [modal, setModal] = useState(false);
+  const [email, setEmail] = useState("");
+  const [displayName, setDisplayName] = useState("");
+  const [selectedRole, setSelectedRole] = useState(roleList[0].value);
+  const [noti, setNoti] = useState("");
+  const [error, setError] = useState("");
+  const isFocused = useIsFocused();
+  useEffect(() => {
+    getUserList();
+  }, []);
+  useEffect(() => {
+    isFocused && getUserList();
+  }, [isFocused]);
+  const getUserList = async () => {
+    setUsers((await AprilService.getAllUsers()).data);
+  };
+  const handleCreateNewUser = async () => {
+    try {
+      await AprilService.postUser({
+        email,
+        displayName,
+        role: selectedRole,
+      });
+      setNoti("User created successfully !");
+      setError("");
+      getUserList();
+    } catch (error) {
+      console.log(error);
+      setError("Username already exists !");
+      setNoti("");
+    }
+  };
+  const Notification = () => {
+    if (noti) {
+      return (
+        <Text
+          style={{
+            color: "#B2C75D",
+            alignSelf: "center",
+            marginTop: 20,
+            fontSize: 15,
+            fontWeight: "500",
+          }}
+        >
+          {noti}
+        </Text>
+      );
+    } else if (error) {
+      return (
+        <Text
+          style={{
+            color: "#FF425A",
+            alignSelf: "center",
+            marginTop: 20,
+            fontSize: 15,
+            fontWeight: "500",
+          }}
+        >
+          {error}
+        </Text>
+      );
+    }
+    return <Text>{""}</Text>;
+  };
+  return (
+    <ImageBackground
+      style={{ width: "100%", height: "100%", backgroundColor: "#FFFFFF" }}
+    >
+      <View style={styles.container}>
+        <ScrollView style={styles.main}>
+          {users.map((user, index) => (
+            <User user={user} key={index} />
+          ))}
+        </ScrollView>
+        <View style={styles.footer}>
+          <TouchableOpacity
+            onPress={() => {
+              setModal(true);
+            }}
+          >
+            <View style={styles.footerChild}>
+              <View style={styles.footerLeft}>
+                <Image
+                  style={{ height: 50, width: 50 }}
+                  source={require("../../assets/figmaComponents/Add.png")}
+                />
               </View>
-              <View style={styles.modal2}>
-                <Text>Name</Text>
-                <TextInput placeholder="Name" style={styles.textInput} />
-              </View>
-              <View style={styles.modal3}>
-                <Text>Role</Text>
-                <TextInput placeholder="Role" style={styles.textInput} />
+              <View style={styles.footerRight}>
+                <Text
+                  style={{
+                    fontSize: 20,
+                    fontWeight: "500",
+                  }}
+                >
+                  Create new User
+                </Text>
               </View>
             </View>
-            <View style={styles.button1}>
-              <Button style={styles.button}>
-                <Text style={styles.buttonText}>Add</Text>
-              </Button>
-              <Button style={styles.buttonCancel} onPress={hide}>
-                <Text style={styles.buttonText}>Cancel</Text>
-              </Button>
+          </TouchableOpacity>
+        </View>
+      </View>
+      <Modal
+        visible={modal}
+        animationType="slide"
+        presentationStyle="pageSheet"
+      >
+        <View>
+          <View style={styles.containerModel}>
+            <View style={styles.borderBox}>
+              <Text style={styles.headerCell1}>Create New User</Text>
+              <View style={styles.modal}>
+                <Text style={styles.headerCell}>Email</Text>
+                <BaseTextInput
+                  placeholder="Email"
+                  style={styles.textInput}
+                  onChangeText={setEmail}
+                />
+              </View>
+              <View style={styles.modal}>
+                <Text style={styles.headerCell}>Name</Text>
+                <BaseTextInput
+                  placeholder="Name"
+                  style={styles.textInput}
+                  onChangeText={setDisplayName}
+                />
+              </View>
+              <View style={styles.modal}>
+                <Text style={styles.headerCell}>Role</Text>
+                <Picker
+                  selectedValue={selectedRole}
+                  style={styles.picker}
+                  onValueChange={(itemValue) => setSelectedRole(itemValue)}
+                >
+                  {roleList.map((roleMap, index) => {
+                    return (
+                      <Picker.Item
+                        label={roleMap.label}
+                        value={roleMap.value}
+                        key={index}
+                      />
+                    );
+                  })}
+                </Picker>
+              </View>
+            </View>
+            <View style={styles.modal}>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={handleCreateNewUser}
+              >
+                <Text style={styles.buttonText}>Save</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.buttonCancel}
+                onPress={() => {
+                  setModal(false);
+                }}
+              >
+                <Text style={styles.buttonText}>Done</Text>
+              </TouchableOpacity>
             </View>
           </View>
-        </Modal>
-      </View>
-    </SafeAreaView>
+          <Notification />
+        </View>
+      </Modal>
+    </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
-  // container: {
-  //   flex: 1,
-  //   backgroundColor: "#fff",
-  //   alignItems: "center",
-  //   justifyContent: "center",
-  // },
+  container: {
+    flex: 1,
+  },
+  main: {
+    flex: 1,
+  },
+  user: {
+    marginTop: 20,
+    marginLeft: 20,
+    marginRight: 20,
+    flexDirection: "row",
+    padding: 10,
+    backgroundColor: "#F7C613",
+    borderRadius: 15,
+  },
+  userLeft: {
+    flex: "25%",
+    alignItems: "center",
+  },
+  userLeftImg: {
+    width: 50,
+    height: 50,
+  },
+  userMiddle: {
+    flex: "60%",
+  },
+  userRight: {
+    flex: "15%",
+    justifyContent: "center",
+  },
+  userRightImg: {
+    width: 24,
+    height: 24,
+  },
+  codeName: {
+    fontSize: 15,
+    fontWeight: "500",
+    marginBottom: 10,
+  },
+  footer: {
+    padding: 10,
+    paddingBottom: 20,
+    marginBottom: 30,
+  },
+  footerChild: {
+    paddingLeft: 30,
+    flexDirection: "row",
+  },
+  footerLeft: {
+    flex: "20%",
+    // alignItems: "center",
+  },
+  footerRight: {
+    flex: "80%",
+    justifyContent: "center",
+  },
   modal: {
     flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    paddingTop: 5,
+    justifyContent: "space-between",
+    margin: 10,
+    padding: 10,
   },
-  modal1: {
-    // flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    // width: "70%",
-  },
-  modal2: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    paddingTop: 5,
-    marginRight: 5,
-  },
-  modal3: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    paddingTop: 5,
-    marginLeft: 5,
-  },
-  create_new_class: {
-    marginTop: 300,
-    alignItems: "flex-end",
-  },
-  container: {
+  containerModel: {
     // flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
@@ -157,6 +303,11 @@ const styles = StyleSheet.create({
 
   headerCell: {
     fontWeight: "bold",
+    margin: 10,
+  },
+  headerCell1: {
+    fontWeight: "bold",
+    textAlign: "center",
   },
   row: {
     flexDirection: "row",
@@ -164,34 +315,13 @@ const styles = StyleSheet.create({
     borderBottomColor: "#ccc",
     // paddingVertical: 1,
   },
-  row1: {
-    flexDirection: "row",
-    // borderBottomWidth: 1,
-    borderBottomColor: "#ccc",
-    // paddingVertical: 1,
-  },
-  gpa: {
-    marginLeft: 15,
-    // paddingHorizontal: 1,
-  },
-  icon: {
-    paddingLeft: 20,
-  },
   button: {
     backgroundColor: "#F7C613",
     borderRadius: 8,
     paddingVertical: 10,
     alignItems: "center",
-    // marginTop: 48,
     marginBottom: 12,
-    marginRight: 10,
     width: 180,
-  },
-  button1: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    paddingTop: 5,
   },
   buttonText: {
     color: "#023047",
@@ -205,6 +335,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 12,
     width: 180,
+    marginLeft: 10,
   },
   textInput: {
     height: 40,
@@ -215,13 +346,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingLeft: 10,
     marginLeft: 10,
-    marginVertical: 10,
   },
-  box: {
-    // flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 50,
+  picker: {
+    width: 200,
+    borderColor: "gray",
+    borderWidth: 1,
+    borderRadius: 8,
   },
 });
 
