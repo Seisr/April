@@ -12,15 +12,18 @@ import Icon from "react-native-vector-icons/Ionicons";
 import { AprilService } from "../../services/AprilServices";
 import Button from "../../components/Button.js";
 import { useRoute } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 
 const AddStudent = () => {
+  const navigation = useNavigation();
+
   const [classDetail, setClassDetail] = useState([]);
   const [modal, setModal] = useState(false);
   const [studentId, setStudentId] = useState("");
 
-  // const [userId, setUserId] = useState("");
+  const route = useRoute();
   const { id } = route.params;
-
+  console.log(id);
   const show = () => setModal(true);
   const hide = () => setModal(false);
 
@@ -28,12 +31,13 @@ const AddStudent = () => {
     AprilService.getAllClassDetail()
       .then((res) => {
         setClassDetail(res.data);
+        console.log("retrieving class detail");
+        console.log(classDetail);
       })
       .catch((e) => {
         console.log(e);
       });
   };
-
   const deleteAlert = () => {
     Alert.alert("Delete", "Are you sure you want to delete this student?", [
       {
@@ -45,21 +49,20 @@ const AddStudent = () => {
     ]);
   };
 
-  // const getUserId = async () => {
-  //   const currUser = JSON.parse(await SecureStore.getItemAsync(user));
-  //   setUserId(currUser.userId);
-  // };
-
   const postClassDetail = () => {
     let data = {
       student: studentId,
-      class: id,
+      classId: id,
     };
-    AprilService.postClassDetail(data);
+    console.log(data);
+    try {
+      AprilService.postClassDetail(data);
+    } catch (e) {
+      console.log(e);
+    }
+
     navigation.goBack();
   };
-
-  const addNewStudent = () => {};
 
   useEffect(() => {
     retrieveClassDetail();
@@ -68,43 +71,38 @@ const AddStudent = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.container}>
-        {classDetail !== undefined &&
-          classDetail?.map((course, i) => {
-            return (
-              <SafeAreaView>
-                <View style={styles.container}>
-                  <View style={styles.row}>
-                    <Text style={styles.headerCell}>
-                      {course.class.codeName}{" "}
-                    </Text>
-                    <Text style={styles.headerCell}>Mid </Text>
-                    <Text style={styles.headerCell}>Prac </Text>
-                    <Text style={styles.headerCell}>Fin </Text>
-                    <Text style={styles.headerCell}>Avg </Text>
-                    <Text>{"                              "}</Text>
-                  </View>
-                  <View style={styles.row1} key={i}>
-                    <Text>{"                                "}</Text>
-                    <Text style={styles.gpa}>{course.midTerm} </Text>
-                    <Text style={styles.gpa}>{course.practical} </Text>
-                    <Text style={styles.gpa}>{course.final}</Text>
-                    <Text style={styles.gpa}>{course.average}</Text>
-                    <Icon
-                      name="document-outline"
-                      style={styles.icon}
-                      size={15}
-                    />
-                    <Icon
-                      name="trash-bin-outline"
-                      style={styles.icon}
-                      size={15}
-                      onPress={deleteAlert}
-                    />
-                  </View>
+        {classDetail?.map((course, i) => {
+          return (
+            <SafeAreaView>
+              <View style={styles.container}>
+                <View style={styles.row}>
+                  <Text style={styles.headerCell}>
+                    {course.class.codeName}{" "}
+                  </Text>
+                  <Text style={styles.headerCell}>Mid </Text>
+                  <Text style={styles.headerCell}>Prac </Text>
+                  <Text style={styles.headerCell}>Fin </Text>
+                  <Text style={styles.headerCell}>Avg </Text>
+                  <Text>{"                              "}</Text>
                 </View>
-              </SafeAreaView>
-            );
-          })}
+                <View style={styles.row1} key={i}>
+                  <Text>{"                                "}</Text>
+                  <Text style={styles.gpa}>{course.midTerm} </Text>
+                  <Text style={styles.gpa}>{course.practical} </Text>
+                  <Text style={styles.gpa}>{course.final}</Text>
+                  <Text style={styles.gpa}>{course.average}</Text>
+                  <Icon name="document-outline" style={styles.icon} size={15} />
+                  <Icon
+                    name="trash-bin-outline"
+                    style={styles.icon}
+                    size={15}
+                    onPress={deleteAlert}
+                  />
+                </View>
+              </View>
+            </SafeAreaView>
+          );
+        })}
         <Button style={styles.button}>
           <Text style={styles.buttonText} onPress={show}>
             Add New Student

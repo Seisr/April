@@ -3,6 +3,7 @@ import {
   SafeAreaView,
   StyleSheet,
   Text,
+  Alert,
   View,
   Modal,
   TextInput,
@@ -60,6 +61,17 @@ const TeacherClasses = () => {
     retrieveClasses();
   });
 
+  const deleteAlert = (id) => {
+    Alert.alert("Delete", "Are you sure you want to delete this subject?", [
+      {
+        text: "Cancel",
+        onPress: () => console.log("Cancel Pressed"),
+        style: "cancel",
+      },
+      { text: "OK", onPress: () => AprilService.delClasses(id) },
+    ]);
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.container}>
@@ -70,6 +82,7 @@ const TeacherClasses = () => {
                 <View style={styles.container}>
                   <View style={styles.row2}>
                     <Text style={styles.headerCell}>{course.codeName}</Text>
+                    {/* <Text style={styles.headerCell}>{course._id}</Text> */}
                     <Icon
                       name="document-outline"
                       style={styles.icon}
@@ -78,7 +91,20 @@ const TeacherClasses = () => {
                         navigation.navigate("AddStudent", { id: course._id })
                       }
                     />
-                    <Icon name="create-outline" style={styles.icon} size={15} />
+                    <Icon
+                      name="create-outline"
+                      style={styles.icon}
+                      size={15}
+                      onPress={() =>
+                        navigation.navigate("EditClass", { id: course._id })
+                      }
+                    />
+                    <Icon
+                      name="trash-bin-outline"
+                      style={styles.icon}
+                      size={15}
+                      onPress={() => deleteAlert(course._id)}
+                    />
                   </View>
                 </View>
               </SafeAreaView>

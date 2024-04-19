@@ -89,7 +89,7 @@ const Subjects = () => {
             <SafeAreaView key={course._id}>
               <View style={styles.container}>
                 <View style={styles.row}>
-                  <Text style={styles.headerCell}>{course.code_name} </Text>
+                  <Text style={styles.headerCell}>{course.codeName} </Text>
                   <Icon
                     name="create-outline"
                     style={styles.icon}
@@ -104,7 +104,7 @@ const Subjects = () => {
                   >
                     <View>
                       <View style={styles.box}>
-                        <Text>{course.code_name}</Text>
+                        <Text>{course.codeName}</Text>
                         <View style={styles.modal}>
                           <Text style={styles.textName}>Subject</Text>
                           <TextInput
