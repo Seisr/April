@@ -77,16 +77,18 @@ const AddStudent = () => {
               <View style={styles.container}>
                 <View style={styles.row}>
                   <Text style={styles.headerCell}>
-                    {course.class.codeName}{" "}
+                    {/* {course.class.codeName}{" "} */}
+                    StudentId{"                "}
                   </Text>
-                  <Text style={styles.headerCell}>Mid </Text>
+                  <Text style={styles.headerCell}>Mid{"   "}</Text>
                   <Text style={styles.headerCell}>Prac </Text>
                   <Text style={styles.headerCell}>Fin </Text>
                   <Text style={styles.headerCell}>Avg </Text>
                   <Text>{"                              "}</Text>
                 </View>
                 <View style={styles.row1} key={i}>
-                  <Text>{"                                "}</Text>
+                  <Text>{course.student.codeName}</Text>
+                  <Text>{"                            "}</Text>
                   <Text style={styles.gpa}>{course.midTerm} </Text>
                   <Text style={styles.gpa}>{course.practical} </Text>
                   <Text style={styles.gpa}>{course.final}</Text>

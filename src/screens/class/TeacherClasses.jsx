@@ -78,7 +78,7 @@ const TeacherClasses = () => {
         {classes !== undefined &&
           classes?.map((course, i) => {
             return (
-              <SafeAreaView>
+              <SafeAreaView key={i}>
                 <View style={styles.container}>
                   <View style={styles.row2}>
                     <Text style={styles.headerCell}>{course.codeName}</Text>
