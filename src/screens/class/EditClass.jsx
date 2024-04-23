@@ -29,17 +29,45 @@ const EditClass = () => {
 
   useEffect(() => {
     retrieveClassesById(id);
-  });
-  console.log(classes);
+    // setUp(classes);
+  }, []);
+  // console.log(classes);
   const retrieveClassesById = (id) => {
     AprilService.getClassesById(id)
       .then((res) => {
         setClasses(res.data);
+        setSubjectId(res.data.subject._id);
+        setTeacherId(res.data.teacher._id);
+        setMidterm(res.data.midTerm);
+        setPractical(res.data.practical);
+        setFinal(res.data.final);
+        setRegEndDate(res.data.registrationEndDate.substring(0, 10));
       })
       .catch((e) => {
         console.log(e);
       });
   };
+
+  const editClasses = () => {
+    let data = {
+      subject: subjectId,
+      teacher: teacherId,
+      midTerm: Number(midterm),
+      practical: Number(practical),
+      final: Number(final),
+      registrationEndDate: regEndDate,
+    };
+    console.log(data);
+    console.log(classes._id);
+    try {
+      AprilService.patchClasses(id, data);
+      navigation.goBack();
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  // hide();
 
   return (
     // <Modal visible={modal} animationType="slide" presentationStyle="pageSheet">
@@ -51,6 +79,7 @@ const EditClass = () => {
             <View style={styles.modal}>
               <Text style={styles.headerCell}>Subject</Text>
               <TextInput
+                id="subjectId"
                 placeholder="Subject"
                 style={styles.textInput}
                 onChangeText={setSubjectId}
@@ -61,15 +90,19 @@ const EditClass = () => {
             <View style={styles.modal}>
               <Text style={styles.headerCell}>Teacher</Text>
               <TextInput
+                id="teacherId"
                 placeholder="Teacher"
                 style={styles.textInput}
                 onChangeText={setTeacherId}
-              />
+              >
+                {classes.teacher?._id}
+              </TextInput>
             </View>
             <Text style={styles.headerCell1}>Score Weight</Text>
             <View style={styles.modal}>
               <Text style={styles.headerCell}>Midterm </Text>
               <TextInput
+                id="midterm"
                 placeholder="20%"
                 style={styles.textInput}
                 onChangeText={setMidterm}
@@ -80,6 +113,7 @@ const EditClass = () => {
             <View style={styles.modal}>
               <Text style={styles.headerCell}>Practical </Text>
               <TextInput
+                id="practical"
                 placeholder="30%"
                 style={styles.textInput}
                 onChangeText={setPractical}
@@ -90,6 +124,7 @@ const EditClass = () => {
             <View style={styles.modal}>
               <Text style={styles.headerCell}>Final </Text>
               <TextInput
+                id="final"
                 placeholder="50%"
                 style={styles.textInput}
                 onChangeText={setFinal}
@@ -100,17 +135,18 @@ const EditClass = () => {
             <View style={styles.modal}>
               <Text style={styles.headerCell}>Reg End Date </Text>
               <TextInput
+                id="regEndDate"
                 placeholder="2024-05-30"
                 style={styles.textInput}
                 onChangeText={setRegEndDate}
               >
-                {classes.registrationEndDate}
+                {classes.registrationEndDate?.substring(0, 10)}
               </TextInput>
             </View>
           </View>
           <View style={styles.modal}>
-            <Button style={styles.button}>
-              <Text style={styles.buttonText}>Create Class</Text>
+            <Button style={styles.button} onPress={editClasses}>
+              <Text style={styles.buttonText}>Edit Class</Text>
             </Button>
             <Button
               style={styles.buttonCancel}
