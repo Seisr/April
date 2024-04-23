@@ -16,6 +16,7 @@ import { Header, MainHeader } from "./src/components/PageHeader";
 import StudentClasses from "./src/screens/class/StudentClasses";
 import ModifyUsers from "./src/screens/users/ModifyUsers";
 import EditClass from "./src/screens/class/EditClass";
+import AddGPA from "./src/screens/class/AddGPA";
 // const Stack = createStackNavigator();
 const Stack = createNativeStackNavigator();
 export default function App() {
@@ -53,6 +54,7 @@ export default function App() {
         <Stack.Screen name="TeacherClasses" component={TeacherClasses} />
         <Stack.Screen name="StudentClasses" component={StudentClasses} />
         <Stack.Screen name="AddStudent" component={AddStudent} />
+        <Stack.Screen name="AddGPA" component={AddGPA} />
         <Stack.Screen name="EditClass" component={EditClass} />
         <Stack.Screen name="CreateClass" component={CreateClass} />
         <Stack.Screen name="EnrollCourses" component={EnrollCourses} />

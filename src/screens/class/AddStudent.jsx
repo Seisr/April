@@ -20,41 +20,46 @@ const AddStudent = () => {
   const [classDetail, setClassDetail] = useState([]);
   const [modal, setModal] = useState(false);
   const [studentId, setStudentId] = useState("");
+  const [classDetailId, setClassDetailId] = useState(0);
 
   const route = useRoute();
-  const { id } = route.params;
-  console.log(id);
+  const { classId } = route.params;
+  // console.log(id);
   const show = () => setModal(true);
   const hide = () => setModal(false);
 
   const retrieveClassDetail = () => {
-    AprilService.getAllClassDetail()
+    let filter = { class: classId };
+    // console.log(filter);
+    AprilService.getClassDetailById(filter)
       .then((res) => {
         setClassDetail(res.data);
-        console.log("retrieving class detail");
-        console.log(classDetail);
+        setClassDetailId(res.data._id);
+        // console.log("retrieving class detail");
+        // console.log(res.data);
       })
       .catch((e) => {
         console.log(e);
       });
   };
-  const deleteAlert = () => {
+
+  const deleteAlert = (id) => {
     Alert.alert("Delete", "Are you sure you want to delete this student?", [
       {
         text: "Cancel",
         onPress: () => console.log("Cancel Pressed"),
         style: "cancel",
       },
-      { text: "OK", onPress: () => console.log("OK Pressed") },
+      { text: "OK", onPress: () => AprilService.delClassDetail(id) },
     ]);
   };
 
   const postClassDetail = () => {
     let data = {
       student: studentId,
-      classId: id,
+      classId: classId,
     };
-    console.log(data);
+    // console.log(data);
     try {
       AprilService.postClassDetail(data);
     } catch (e) {
@@ -66,39 +71,47 @@ const AddStudent = () => {
 
   useEffect(() => {
     retrieveClassDetail();
-  }, []);
+  });
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.container}>
         {classDetail?.map((course, i) => {
           return (
-            <SafeAreaView>
+            <SafeAreaView key={i}>
               <View style={styles.container}>
                 <View style={styles.row}>
                   <Text style={styles.headerCell}>
                     {/* {course.class.codeName}{" "} */}
-                    StudentId{"                "}
+                    StudentId{"                    "}
                   </Text>
-                  <Text style={styles.headerCell}>Mid{"   "}</Text>
-                  <Text style={styles.headerCell}>Prac </Text>
-                  <Text style={styles.headerCell}>Fin </Text>
-                  <Text style={styles.headerCell}>Avg </Text>
-                  <Text>{"                              "}</Text>
+                  <Text style={styles.headerCell}>Mid{"    "}</Text>
+                  <Text style={styles.headerCell}>Prac {"   "}</Text>
+                  <Text style={styles.headerCell}>Fin{"   "} </Text>
+                  <Text style={styles.headerCell}>Avg{"    "} </Text>
+                  <Text>{"                 "}</Text>
                 </View>
                 <View style={styles.row1} key={i}>
                   <Text>{course.student.codeName}</Text>
-                  <Text>{"                            "}</Text>
-                  <Text style={styles.gpa}>{course.midTerm} </Text>
-                  <Text style={styles.gpa}>{course.practical} </Text>
-                  <Text style={styles.gpa}>{course.final}</Text>
-                  <Text style={styles.gpa}>{course.average}</Text>
-                  <Icon name="document-outline" style={styles.icon} size={15} />
+                  <View style={styles.allGPA}>
+                    <Text style={styles.gpaMid}>{course.midTerm}</Text>
+                    <Text style={styles.gpaPrac}>{course.practical}</Text>
+                    <Text style={styles.gpaF}>{course.final}</Text>
+                    <Text style={styles.gpa}>{course.average?.toFixed(1)}</Text>
+                  </View>
+                  <Icon
+                    name="document-outline"
+                    style={styles.icon}
+                    size={15}
+                    onPress={() =>
+                      navigation.navigate("AddGPA", { id: course._id })
+                    }
+                  />
                   <Icon
                     name="trash-bin-outline"
                     style={styles.icon}
                     size={15}
-                    onPress={deleteAlert}
+                    onPress={() => deleteAlert(course._id)}
                   />
                 </View>
               </View>
@@ -186,8 +199,21 @@ const styles = StyleSheet.create({
     // paddingVertical: 1,
   },
   gpa: {
-    marginLeft: 15,
+    marginLeft: 30,
     // paddingHorizontal: 1,
+  },
+  gpaMid: {
+    marginLeft: 25,
+  },
+  gpaPrac: {
+    marginLeft: 30,
+  },
+  gpaF: {
+    marginLeft: 40,
+  },
+  allGPA: {
+    flexDirection: "row",
+    marginRight: 10,
   },
   icon: {
     paddingLeft: 20,

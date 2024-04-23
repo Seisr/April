@@ -88,7 +88,9 @@ const TeacherClasses = () => {
                       style={styles.icon}
                       size={15}
                       onPress={() =>
-                        navigation.navigate("AddStudent", { id: course._id })
+                        navigation.navigate("AddStudent", {
+                          classId: course._id,
+                        })
                       }
                     />
                     <Icon

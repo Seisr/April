@@ -72,9 +72,12 @@ export const AprilService = {
     });
   },
 
-  getClassDetailById: async (id) => {
-    return axios.get(`${beHOST}/class-details/${id}`, {
+  getClassDetailById: async (filter) => {
+    return axios.get(`${beHOST}/class-details/`, {
       headers: await get_header(),
+      params: {
+        filter: JSON.stringify(filter),
+      },
     });
   },
   postClassDetail: async (data) => {
@@ -82,12 +85,12 @@ export const AprilService = {
       headers: await get_header(),
     });
   },
-  patchClassDetail: async (data) => {
-    return axios.patch(`${beHOST}/class-details`, data, {
+  patchClassDetail: async (id, data) => {
+    return axios.patch(`${beHOST}/class-details/${id}`, data, {
       headers: await get_header(),
     });
   },
-  delClassDetail: async () => {
+  delClassDetail: async (id) => {
     return axios.delete(`${beHOST}/class-details/${id}`, {
       headers: await get_header(),
     });
