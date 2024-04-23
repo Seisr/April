@@ -40,6 +40,7 @@ const ModifyUsers = ({ route }) => {
   const imgList = {
     save: require("../../assets/figmaComponents/Save.png"),
     trash: require("../../assets/figmaComponents/Trash.png"),
+    signout: require("../../assets/figmaComponents/SignOut.png"),
   };
 
   useEffect(() => {
@@ -129,6 +130,22 @@ const ModifyUsers = ({ route }) => {
         text: "OK",
         onPress: async () => {
           await handleDelete();
+        },
+      },
+    ]);
+
+  const handleSignOut = async () =>
+    Alert.alert("Sign Out", "Are you sure you want to sign out?", [
+      {
+        text: "Cancel",
+        onPress: () => console.log("Cancel Pressed"),
+        style: "cancel",
+      },
+      {
+        text: "OK",
+        onPress: async () => {
+          await SecureStore.deleteItemAsync(userKey);
+          navigation.navigate("Login");
         },
       },
     ]);
@@ -230,12 +247,6 @@ const ModifyUsers = ({ route }) => {
             style={[styles.input, { marginTop: 20 }]}
             placeholder="Email"
             value={email}
-            onChangeText={(e) => {
-              if (_type == "create") {
-                setEmail(e);
-              }
-              return;
-            }}
           />
         </View>
         <View style={styles.containerInput}>
@@ -260,6 +271,14 @@ const ModifyUsers = ({ route }) => {
         <RightButton />
       </View>
       <Notification />
+      <TouchableOpacity style={styles.signOut} onPress={handleSignOut}>
+        <View style={styles.containerSignOut}>
+          <Image style={{ width: 40, height: 40 }} source={imgList.signout} />
+          <View style={styles.signOut}>
+            <Text style={styles.signOutText}>Logout</Text>
+          </View>
+        </View>
+      </TouchableOpacity>
       <Modal
         visible={modal}
         animationType="slide"
@@ -474,6 +493,20 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginBottom: 20,
     backgroundColor: "#FFFFFF",
+  },
+  containerSignOut: {
+    flexDirection: "row",
+    marginTop: 40,
+    marginLeft: 250,
+    alignContent: "center",
+  },
+  signOut: {
+    justifyContent: "center",
+  },
+
+  signOutText: {
+    fontWeight: "500",
+    color: "#6F6F70",
   },
 });
 
