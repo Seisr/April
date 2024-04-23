@@ -42,10 +42,10 @@ const TeacherClasses = () => {
     let data = {
       subject: subjectId,
       teacher: teacherId,
-      midTerm: parseFloat(midterm),
-      practical: parseFloat(practical),
-      final: parseFloat(final),
-      regEndDate: regEndDate,
+      midTerm: Number(midterm),
+      practical: Number(practical),
+      final: Number(final),
+      registrationEndDate: regEndDate,
     };
     console.log(data);
     try {
