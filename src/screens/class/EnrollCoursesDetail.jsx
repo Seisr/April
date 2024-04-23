@@ -18,11 +18,14 @@ const EnrollCoursesDetail = () => {
   const route = useRoute();
   const navigation = useNavigation();
 
-  const { id } = route.params;
+  const { id, id2 } = route.params;
+  console.log(id2);
+  console.log(`Đây là userId ${userId}`);
   const retrieveClasses = () => {
     AprilService.getAllClasses()
       .then((res) => {
         setClasses(res.data);
+        console.log(classes);
       })
       .catch((e) => {
         console.log(e);
@@ -31,12 +34,13 @@ const EnrollCoursesDetail = () => {
   const getUserId = async () => {
     const currUser = JSON.parse(await SecureStore.getItemAsync(user));
     setUserId(currUser.userId);
+    console.log(currUser.userId);
   };
 
   const postClassDetail = () => {
     let data = {
       student: userId,
-      class: id,
+      classId: id2,
     };
     AprilService.postClassDetail(data);
     navigation.goBack();
@@ -44,6 +48,7 @@ const EnrollCoursesDetail = () => {
 
   useEffect(() => {
     retrieveClasses();
+    getUserId();
   }, []);
   return (
     <View>
@@ -69,7 +74,7 @@ const EnrollCoursesDetail = () => {
                 style={styles.textInput}
                 editable={false}
               >
-                {/* {classes[id].teacclasses[id]?.teacher} */}
+                {classes[id]?.teacher.displayName}
               </TextInput>
             </View>
             <Text style={styles.headerCell1}>Score Weight</Text>

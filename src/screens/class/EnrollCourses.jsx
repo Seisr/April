@@ -27,30 +27,32 @@ const EnrollCourses = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View>
-        {classes !== undefined &&
-          classes?.map((course, i) => {
-            return (
-              <SafeAreaView key={i}>
-                <View style={styles.container}>
-                  <View style={styles.row} key={i}>
-                    <Text style={styles.headerCell}>{course.codeName} </Text>
-                    <Text>
-                      {course.subject.name}
-                      {"     "}
-                    </Text>
-                    <Icon
-                      name="create-outline"
-                      style={styles.icon}
-                      size={20}
-                      onPress={() =>
-                        navigation.navigate("EnrollCoursesDetail", { id: i })
-                      }
-                    />
-                  </View>
+        {classes?.map((course, i) => {
+          return (
+            <SafeAreaView key={i}>
+              <View style={styles.container}>
+                <View style={styles.row} key={i}>
+                  <Text style={styles.headerCell}>{course.codeName} </Text>
+                  <Text>
+                    {course.subject.name}
+                    {"     "}
+                  </Text>
+                  <Icon
+                    name="create-outline"
+                    style={styles.icon}
+                    size={20}
+                    onPress={() =>
+                      navigation.navigate("EnrollCoursesDetail", {
+                        id: i,
+                        id2: course._id,
+                      })
+                    }
+                  />
                 </View>
-              </SafeAreaView>
-            );
-          })}
+              </View>
+            </SafeAreaView>
+          );
+        })}
       </View>
     </SafeAreaView>
   );

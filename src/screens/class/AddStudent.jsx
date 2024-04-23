@@ -35,8 +35,9 @@ const AddStudent = () => {
     AprilService.getAllUsersByRole(filterRole).then((res) => {
       setAllStudent(res.data);
       // console.log(res.data._id);
-      // console.log(allStudent);
+      console.log(allStudent);
     });
+
     let filter = { class: classId };
     // console.log(filter);
     AprilService.getClassDetailById(filter)
