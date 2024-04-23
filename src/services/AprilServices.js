@@ -15,11 +15,28 @@ export const AprilService = {
       headers: await get_header(),
     });
   },
+  getAllUsersByRole: async (filter) => {
+    return await axios.get(`${beHOST}/users/`, {
+      headers: await get_header(),
+      params: {
+        filter: JSON.stringify(filter),
+      },
+    });
+  },
   getUserById: async (id) => {
     return axios.get(`${beHOST}/users/${id}`, {
       headers: await get_header(),
     });
   },
+  getUserByCodeName: async (filter) => {
+    return await axios.get(`${beHOST}/users/`, {
+      headers: await get_header(),
+      params: {
+        filter: JSON.stringify(filter),
+      },
+    });
+  },
+
   postUser: async (data) => {
     return axios.post(`${beHOST}/users`, data, {
       headers: await get_header(),

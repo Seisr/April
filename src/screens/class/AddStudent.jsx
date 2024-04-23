@@ -21,6 +21,8 @@ const AddStudent = () => {
   const [modal, setModal] = useState(false);
   const [studentId, setStudentId] = useState("");
   const [classDetailId, setClassDetailId] = useState(0);
+  const [allStudent, setAllStudent] = useState([]);
+  const [codeName, setCodeName] = useState("");
 
   const route = useRoute();
   const { classId } = route.params;
@@ -29,6 +31,12 @@ const AddStudent = () => {
   const hide = () => setModal(false);
 
   const retrieveClassDetail = () => {
+    let filterRole = { role: "student" };
+    AprilService.getAllUsersByRole(filterRole).then((res) => {
+      setAllStudent(res.data);
+      // console.log(res.data._id);
+      // console.log(allStudent);
+    });
     let filter = { class: classId };
     // console.log(filter);
     AprilService.getClassDetailById(filter)
@@ -54,12 +62,18 @@ const AddStudent = () => {
     ]);
   };
 
-  const postClassDetail = () => {
+  const postClassDetail = async () => {
+    let filterCode = { codeName: codeName };
+    let student = await AprilService.getUserByCodeName(filterCode);
+    let studentData = student.data;
+    console.log(studentData[0]);
+
     let data = {
-      student: studentId,
+      student: studentData[0]._id,
       classId: classId,
     };
-    // console.log(data);
+    console.log("Đây là data");
+    console.log(data);
     try {
       AprilService.postClassDetail(data);
     } catch (e) {
@@ -134,7 +148,7 @@ const AddStudent = () => {
               <TextInput
                 placeholder="StudentCode"
                 style={styles.textInput}
-                onChangeText={setStudentId}
+                onChangeText={setCodeName}
               />
             </View>
             <View style={styles.modal1}>
