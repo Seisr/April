@@ -9,6 +9,7 @@ const StudentClasses = () => {
     AprilService.getAllClassDetail()
       .then((res) => {
         setClassDetail(res.data);
+        console.log(res.data);
       })
       .catch((e) => {
         console.log(e);
@@ -29,7 +30,7 @@ const StudentClasses = () => {
                 <View style={styles.container}>
                   <View style={styles.row}>
                     <Text style={styles.headerCell}>
-                      {course.class.codeName}{" "}
+                      {course.class?.codeName}{" "}
                     </Text>
                     <Text style={styles.headerCell}>Midterm </Text>
                     <Text style={styles.headerCell}>Practical </Text>
