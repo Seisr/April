@@ -81,7 +81,7 @@ const Subjects = () => {
         name: prevSub,
         description: desc2,
       };
-    } else if (subject2 !== "" && desc2 !== "") {
+    } else if (subject2 === "" && desc2 === "") {
       data = {
         name: prevSub,
         description: prevDesc,
@@ -94,6 +94,8 @@ const Subjects = () => {
     }
     console.log(data);
     AprilService.patchSubjects(id, data);
+    setSubject2("");
+    setDesc2("");
     hide2(id);
   };
 

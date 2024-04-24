@@ -60,6 +60,22 @@ export const AprilService = {
       headers: await get_header(),
     });
   },
+  getAllClassesByUserId: async (filter) => {
+    return await axios.get(`${beHOST}/classes/`, {
+      headers: await get_header(),
+      params: {
+        filter: JSON.stringify(filter),
+      },
+    });
+  },
+  // getUserByCodeName: async (filter) => {
+  //   return await axios.get(`${beHOST}/users/`, {
+  //     headers: await get_header(),
+  //     params: {
+  //       filter: JSON.stringify(filter),
+  //     },
+  //   });
+  // },
   getClassesById: async (id) => {
     return axios.get(`${beHOST}/classes/${id}`, {
       headers: await get_header(),

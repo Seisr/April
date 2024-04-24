@@ -17,6 +17,7 @@ import StudentClasses from "./src/screens/class/StudentClasses";
 import ModifyUsers from "./src/screens/users/ModifyUsers";
 import EditClass from "./src/screens/class/EditClass";
 import AddGPA from "./src/screens/class/AddGPA";
+import TeacherClasses2 from "./src/screens/class/TeacherClasses2";
 // const Stack = createStackNavigator();
 const Stack = createNativeStackNavigator();
 export default function App() {
@@ -66,6 +67,13 @@ export default function App() {
         <Stack.Screen
           name="TeacherClasses"
           component={TeacherClasses}
+          options={{
+            header: () => <Header>Classes</Header>,
+          }}
+        />
+        <Stack.Screen
+          name="TeacherClasses2"
+          component={TeacherClasses2}
           options={{
             header: () => <Header>Classes</Header>,
           }}

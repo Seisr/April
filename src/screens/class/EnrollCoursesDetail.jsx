@@ -12,6 +12,8 @@ import { AprilService } from "../../services/AprilServices";
 import Button from "../../components/Button.js";
 import { useNavigation } from "@react-navigation/native";
 import { useRoute } from "@react-navigation/native";
+import * as SecureStore from "expo-secure-store";
+
 const EnrollCoursesDetail = () => {
   const [classes, setClasses] = useState([]);
   const [userId, setUserId] = useState("");

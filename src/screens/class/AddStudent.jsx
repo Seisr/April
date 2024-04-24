@@ -119,7 +119,7 @@ const AddStudent = () => {
 
   useEffect(() => {
     retrieveClassDetail();
-  }, []);
+  }, [classDetail]);
 
   return (
     <SafeAreaView style={styles.container}>

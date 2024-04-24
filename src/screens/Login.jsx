@@ -23,6 +23,7 @@ const Login = () => {
   const [errors, setErrors] = useState({});
   const [isFormValid, setIsFormValid] = useState(false);
   const [isLoginValid, setIsLoginValid] = useState(false);
+
   useEffect(() => {
     validateForm();
   }, [email, password]);

@@ -3,6 +3,7 @@ import React from "react";
 import { StyleSheet, TouchableOpacity, Image } from "react-native";
 import TeacherClasses from "../screens/class/TeacherClasses";
 import StudentClasses from "../screens/class/StudentClasses";
+import TeacherClasses2 from "../screens/class/TeacherClasses2";
 
 export default function Menu({ page, role }) {
   const navigation = useNavigation();
@@ -13,6 +14,7 @@ export default function Menu({ page, role }) {
     CreateClass: require("../assets/figmaComponents/CreateClass.png"),
     EnrollCourses: require("../assets/figmaComponents/EnrollCourses.png"),
     TeacherClasses: require("../assets/figmaComponents/Classes.png"),
+    TeacherClasses2: require("../assets/figmaComponents/Classes.png"),
     StudentClasses: require("../assets/figmaComponents/Classes.png"),
   };
   return (

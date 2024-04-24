@@ -21,6 +21,7 @@ const EnrollCourses = () => {
   useEffect(() => {
     retrieveClasses();
   });
+  // console.log(`đây là class: ${classes}`);
 
   const navigation = useNavigation();
 
