@@ -13,6 +13,7 @@ import { AprilService } from "../../services/AprilServices";
 import Button from "../../components/Button.js";
 import { useRoute } from "@react-navigation/native";
 import { useNavigation } from "@react-navigation/native";
+import { Dropdown } from "react-native-element-dropdown";
 
 const AddStudent = () => {
   const navigation = useNavigation();
@@ -23,6 +24,31 @@ const AddStudent = () => {
   const [classDetailId, setClassDetailId] = useState(0);
   const [allStudent, setAllStudent] = useState([]);
   const [codeName, setCodeName] = useState("");
+  const [codeNameStudentId, setCodeNameStudentId] = useState("");
+
+  const [value, setValue] = useState(null);
+  const [isFocus, setIsFocus] = useState(false);
+  const data = [
+    { label: "Item 1", value: "1" },
+    { label: "Item 2", value: "2" },
+    { label: "Item 3", value: "3" },
+    { label: "Item 4", value: "4" },
+    { label: "Item 5", value: "5" },
+    { label: "Item 6", value: "6" },
+    { label: "Item 7", value: "7" },
+    { label: "Item 8", value: "8" },
+  ];
+
+  const renderLabel = () => {
+    if (value || isFocus) {
+      return (
+        <Text style={[styles.label, isFocus && { color: "blue" }]}>
+          Dropdown label
+        </Text>
+      );
+    }
+    return null;
+  };
 
   const route = useRoute();
   const { classId } = route.params;
@@ -33,8 +59,12 @@ const AddStudent = () => {
   const retrieveClassDetail = () => {
     let filterRole = { role: "student" };
     AprilService.getAllUsersByRole(filterRole).then((res) => {
-      setAllStudent(res.data);
+      let temp = [];
+      res.data.map((item) => {
+        temp.push({ label: item.codeName, value: item._id });
+      });
       // console.log(res.data._id);
+      setAllStudent(temp);
       console.log(allStudent);
     });
 
@@ -64,29 +94,42 @@ const AddStudent = () => {
   };
 
   const postClassDetail = async () => {
-    let filterCode = { codeName: codeName };
-    let student = await AprilService.getUserByCodeName(filterCode);
-    let studentData = student.data;
-    console.log(studentData[0]);
-
     let data = {
-      student: studentData[0]._id,
+      student: codeNameStudentId,
       classId: classId,
     };
-    console.log("Đây là data");
-    console.log(data);
     try {
       AprilService.postClassDetail(data);
     } catch (e) {
       console.log(e);
     }
-
     navigation.goBack();
   };
 
+  // const postClassDetail = async () => {
+  //   let filterCode = { codeName: codeName };
+  //   let student = await AprilService.getUserByCodeName(filterCode);
+  //   let studentData = student.data;
+  //   console.log(studentData[0]);
+
+  //   let data = {
+  //     student: studentData[0]._id,
+  //     classId: classId,
+  //   };
+  //   console.log("Đây là data");
+  //   console.log(data);
+  //   try {
+  //     AprilService.postClassDetail(data);
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+
+  //   navigation.goBack();
+  // };
+
   useEffect(() => {
     retrieveClassDetail();
-  });
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -145,13 +188,38 @@ const AddStudent = () => {
         >
           <View>
             <View style={styles.modal}>
+              {renderLabel()}
+              <Dropdown
+                style={[styles.dropdown, isFocus && { borderColor: "blue" }]}
+                placeholderStyle={styles.placeholderStyle}
+                selectedTextStyle={styles.selectedTextStyle}
+                inputSearchStyle={styles.inputSearchStyle}
+                iconStyle={styles.iconStyle}
+                data={allStudent}
+                search
+                maxHeight={300}
+                labelField="label"
+                valueField="value"
+                placeholder={!isFocus ? "Select Student" : "..."}
+                searchPlaceholder="Search..."
+                value={value}
+                onFocus={() => setIsFocus(true)}
+                onBlur={() => setIsFocus(false)}
+                onChange={(item) => {
+                  setValue(item.value);
+                  setCodeNameStudentId(item.value);
+                  setIsFocus(false);
+                }}
+              />
+            </View>
+            {/* <View style={styles.modal}>
               <Text>StudentCode</Text>
               <TextInput
                 placeholder="StudentCode"
                 style={styles.textInput}
                 onChangeText={setCodeName}
               />
-            </View>
+            </View> */}
             <View style={styles.modal1}>
               <Button style={styles.button} onPress={postClassDetail}>
                 <Text style={styles.buttonText}>Add</Text>
@@ -264,6 +332,40 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingLeft: 10,
     marginLeft: 10,
+  },
+  dropdown: {
+    height: 50,
+    borderColor: "gray",
+    borderWidth: 0.5,
+    borderRadius: 8,
+    paddingHorizontal: 8,
+    width: 200,
+  },
+  icon: {
+    marginRight: 5,
+  },
+  label: {
+    position: "absolute",
+    backgroundColor: "white",
+    left: 22,
+    top: 8,
+    zIndex: 999,
+    paddingHorizontal: 8,
+    fontSize: 14,
+  },
+  placeholderStyle: {
+    fontSize: 16,
+  },
+  selectedTextStyle: {
+    fontSize: 16,
+  },
+  iconStyle: {
+    width: 20,
+    height: 20,
+  },
+  inputSearchStyle: {
+    height: 40,
+    fontSize: 16,
   },
 });
 
