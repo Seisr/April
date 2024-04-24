@@ -12,6 +12,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 import { AprilService } from "../../services/AprilServices";
 import Button from "../../components/Button.js";
 import { useNavigation } from "@react-navigation/native";
+import { Dropdown } from "react-native-element-dropdown";
 
 const TeacherClasses = () => {
   const [classes, setClasses] = useState([]);
@@ -22,13 +23,54 @@ const TeacherClasses = () => {
   const [practical, setPractical] = useState(0);
   const [final, setFinal] = useState(0);
   const [regEndDate, setRegEndDate] = useState("");
+  const [allTeacher, setAllTeacher] = useState("");
+  const [allSubjects, setAllSubjects] = useState("");
+  const [codeNameTeacherId, setCodeNameTeacherId] = useState("");
+  const [codeNameSubjectId, setCodeNameSubjectId] = useState("");
+  const [value, setValue] = useState(null);
+  const [isFocus, setIsFocus] = useState(false);
+
+  const [value1, setValue1] = useState(null);
+  const [isFocus1, setIsFocus1] = useState(false);
 
   const show = () => setModal(true);
   const hide = () => setModal(false);
 
   const navigation = useNavigation();
 
+  const renderLabel = () => {
+    if (value || isFocus) {
+      return <Text style={[styles.label, isFocus && { color: "blue" }]}></Text>;
+    }
+    return null;
+  };
+
+  const renderLabel1 = () => {
+    if (value1 || isFocus1) {
+      return (
+        <Text style={[styles.label, isFocus1 && { color: "blue" }]}></Text>
+      );
+    }
+    return null;
+  };
+
   const retrieveClasses = () => {
+    let filterRole = { role: "teacher" };
+    AprilService.getAllUsersByRole(filterRole).then((res) => {
+      let temp = [];
+      res.data.map((item) => {
+        temp.push({ label: item.displayName, value: item._id });
+      });
+      setAllTeacher(temp);
+    });
+
+    AprilService.getAllSubjects().then((res) => {
+      let temp = [];
+      res.data.map((item) => {
+        temp.push({ label: item.name, value: item._id });
+      });
+      setAllSubjects(temp);
+    });
     AprilService.getAllClasses()
       .then((res) => {
         setClasses(res.data);
@@ -59,7 +101,7 @@ const TeacherClasses = () => {
 
   useEffect(() => {
     retrieveClasses();
-  });
+  }, []);
 
   const deleteAlert = (id) => {
     Alert.alert("Delete", "Are you sure you want to delete this subject?", [
@@ -130,20 +172,77 @@ const TeacherClasses = () => {
                 <Text style={styles.headerCell1}>Class</Text>
                 <View style={styles.modal}>
                   <Text style={styles.headerCell}>Subject</Text>
-                  <TextInput
+                  {/* <TextInput
                     placeholder="Subject"
                     style={styles.textInput}
                     onChangeText={setSubjectId}
-                  />
+                  /> */}
+                  <View style={styles.modal}>
+                    {renderLabel1()}
+                    <Dropdown
+                      style={[
+                        styles.dropdown,
+                        isFocus1 && { borderColor: "blue" },
+                      ]}
+                      placeholderStyle={styles.placeholderStyle}
+                      selectedTextStyle={styles.selectedTextStyle}
+                      inputSearchStyle={styles.inputSearchStyle}
+                      iconStyle={styles.iconStyle}
+                      data={allSubjects}
+                      search
+                      maxHeight={300}
+                      labelField="label"
+                      valueField="value"
+                      placeholder={!isFocus1 ? "Select Subject" : "..."}
+                      searchPlaceholder="Search..."
+                      value={value1}
+                      onFocus={() => setIsFocus(true)}
+                      onBlur={() => setIsFocus(false)}
+                      onChange={(item) => {
+                        setValue(item.value);
+                        setCodeNameSubjectId(item.value);
+                        setIsFocus(false);
+                      }}
+                    />
+                  </View>
                 </View>
                 <View style={styles.modal}>
                   <Text style={styles.headerCell}>Teacher</Text>
-                  <TextInput
+                  {/* <TextInput
                     placeholder="Teacher"
                     style={styles.textInput}
                     onChangeText={setTeacherId}
-                  />
+                  /> */}
+                  <View style={styles.modal}>
+                    {renderLabel()}
+                    <Dropdown
+                      style={[
+                        styles.dropdown,
+                        isFocus && { borderColor: "blue" },
+                      ]}
+                      placeholderStyle={styles.placeholderStyle}
+                      selectedTextStyle={styles.selectedTextStyle}
+                      inputSearchStyle={styles.inputSearchStyle}
+                      iconStyle={styles.iconStyle}
+                      data={allTeacher}
+                      search
+                      maxHeight={300}
+                      labelField="label"
+                      valueField="value"
+                      placeholder={!isFocus ? "Select Teacher" : "..."}
+                      searchPlaceholder="Search..."
+                      value={value}
+                      onFocus={() => setIsFocus(true)}
+                      onBlur={() => setIsFocus(false)}
+                      onChange={(item) => {
+                        setValue(item.value);
+                        setCodeNameTeacherId(item.value);
+                        setIsFocus(false);
+                      }}
+                    />
+                  </View>
                 </View>
+
                 <Text style={styles.headerCell1}>Score Weight</Text>
                 <View style={styles.modal}>
                   <Text style={styles.headerCell}>Midterm </Text>
@@ -289,6 +388,40 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingLeft: 10,
     marginLeft: 10,
+  },
+  dropdown: {
+    height: 50,
+    borderColor: "gray",
+    borderWidth: 0.5,
+    borderRadius: 8,
+    paddingHorizontal: 8,
+    width: 200,
+  },
+  icon: {
+    marginRight: 5,
+  },
+  label: {
+    position: "absolute",
+    backgroundColor: "white",
+    left: 22,
+    top: 8,
+    zIndex: 999,
+    paddingHorizontal: 8,
+    fontSize: 14,
+  },
+  placeholderStyle: {
+    fontSize: 16,
+  },
+  selectedTextStyle: {
+    fontSize: 16,
+  },
+  iconStyle: {
+    width: 20,
+    height: 20,
+  },
+  inputSearchStyle: {
+    height: 40,
+    fontSize: 16,
   },
 });
 
