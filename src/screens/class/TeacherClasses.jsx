@@ -125,30 +125,32 @@ const TeacherClasses = () => {
                   <View style={styles.row2}>
                     <Text style={styles.headerCell}>{course.codeName}</Text>
                     {/* <Text style={styles.headerCell}>{course._id}</Text> */}
-                    <Icon
-                      name="document-outline"
-                      style={styles.icon}
-                      size={15}
-                      onPress={() =>
-                        navigation.navigate("AddStudent", {
-                          classId: course._id,
-                        })
-                      }
-                    />
-                    <Icon
-                      name="create-outline"
-                      style={styles.icon}
-                      size={15}
-                      onPress={() =>
-                        navigation.navigate("EditClass", { id: course._id })
-                      }
-                    />
-                    <Icon
-                      name="trash-bin-outline"
-                      style={styles.icon}
-                      size={15}
-                      onPress={() => deleteAlert(course._id)}
-                    />
+                    <View style={styles.row3}>
+                      <Icon
+                        name="document-outline"
+                        style={styles.icon}
+                        size={15}
+                        onPress={() =>
+                          navigation.navigate("AddStudent", {
+                            classId: course._id,
+                          })
+                        }
+                      />
+                      <Icon
+                        name="create-outline"
+                        style={styles.icon}
+                        size={15}
+                        onPress={() =>
+                          navigation.navigate("EditClass", { id: course._id })
+                        }
+                      />
+                      <Icon
+                        name="trash-bin-outline"
+                        style={styles.icon}
+                        size={15}
+                        onPress={() => deleteAlert(course._id)}
+                      />
+                    </View>
                   </View>
                 </View>
               </SafeAreaView>
@@ -171,7 +173,7 @@ const TeacherClasses = () => {
               <View style={styles.borderBox}>
                 <Text style={styles.headerCell1}>Class</Text>
                 <View style={styles.modal}>
-                  <Text style={styles.headerCell}>Subject</Text>
+                  <Text style={styles.headerCell2}>Subject</Text>
                   {/* <TextInput
                     placeholder="Subject"
                     style={styles.textInput}
@@ -207,7 +209,7 @@ const TeacherClasses = () => {
                   </View>
                 </View>
                 <View style={styles.modal}>
-                  <Text style={styles.headerCell}>Teacher</Text>
+                  <Text style={styles.headerCell2}>Teacher</Text>
                   {/* <TextInput
                     placeholder="Teacher"
                     style={styles.textInput}
@@ -247,7 +249,7 @@ const TeacherClasses = () => {
                 <View style={styles.modal}>
                   <Text style={styles.headerCell}>Midterm </Text>
                   <TextInput
-                    placeholder="20%"
+                    placeholder="0.2"
                     style={styles.textInput}
                     onChangeText={setMidterm}
                   />
@@ -255,7 +257,7 @@ const TeacherClasses = () => {
                 <View style={styles.modal}>
                   <Text style={styles.headerCell}>Practical </Text>
                   <TextInput
-                    placeholder="30%"
+                    placeholder="0.3"
                     style={styles.textInput}
                     onChangeText={setPractical}
                   />
@@ -263,7 +265,7 @@ const TeacherClasses = () => {
                 <View style={styles.modal}>
                   <Text style={styles.headerCell}>Final </Text>
                   <TextInput
-                    placeholder="50%"
+                    placeholder="0.5"
                     style={styles.textInput}
                     onChangeText={setFinal}
                   />
@@ -321,6 +323,10 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     margin: 10,
   },
+  headerCell2: {
+    fontWeight: "bold",
+    margin: 50,
+  },
   headerCell1: {
     fontWeight: "bold",
     textAlign: "center",
@@ -328,7 +334,7 @@ const styles = StyleSheet.create({
   headerCell2: {
     justifyContent: "space-between",
     fontWeight: "bold",
-    margin: 10,
+    margin: 25,
   },
   row: {
     flexDirection: "row",
@@ -349,13 +355,20 @@ const styles = StyleSheet.create({
     borderBottomColor: "#ccc",
     // paddingVertical: 1,
   },
+  row3: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 10,
+    // paddingVertical: 1,
+  },
   gpa: {
     marginLeft: 15,
     // paddingHorizontal: 1,
   },
   icon: {
-    paddingLeft: 20,
-    paddingTop: 11,
+    paddingLeft: 25,
+    // paddingTop: 20,
+    // marginRight: 5,
   },
   button: {
     backgroundColor: "#F7C613",
@@ -396,9 +409,6 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingHorizontal: 8,
     width: 200,
-  },
-  icon: {
-    marginRight: 5,
   },
   label: {
     position: "absolute",

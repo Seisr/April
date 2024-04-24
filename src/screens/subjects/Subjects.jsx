@@ -67,18 +67,39 @@ const Subjects = () => {
     setModal(false);
   };
 
-  const editSubject = (id) => {
-    let data = {
-      name: subject2,
-      description: desc2,
-    };
+  const editSubject = (id, prevSub, prevDesc) => {
+    let data = {};
+    console.log(subject2);
+    console.log(desc2);
+    if (subject2 !== "" && desc2 === "") {
+      data = {
+        name: subject2,
+        description: prevDesc,
+      };
+    } else if (desc2 !== "" && subject2 === "") {
+      data = {
+        name: prevSub,
+        description: desc2,
+      };
+    } else if (subject2 !== "" && desc2 !== "") {
+      data = {
+        name: prevSub,
+        description: prevDesc,
+      };
+    } else {
+      data = {
+        name: subject2,
+        description: desc2,
+      };
+    }
+    console.log(data);
     AprilService.patchSubjects(id, data);
     hide2(id);
   };
 
   useEffect(() => {
     retrieveSubjects();
-  });
+  }, [subjects]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -132,7 +153,13 @@ const Subjects = () => {
                         <Button style={styles.button}>
                           <Text
                             style={styles.buttonText}
-                            onPress={() => editSubject(course._id)}
+                            onPress={() =>
+                              editSubject(
+                                course._id,
+                                course.name,
+                                course.description
+                              )
+                            }
                           >
                             Edit
                           </Text>

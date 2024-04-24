@@ -290,6 +290,7 @@ const styles = StyleSheet.create({
   },
   icon: {
     paddingLeft: 20,
+    marginRight: 5,
   },
   button: {
     backgroundColor: "#F7C613",
@@ -330,9 +331,6 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingHorizontal: 8,
     width: 200,
-  },
-  icon: {
-    marginRight: 5,
   },
   label: {
     position: "absolute",
