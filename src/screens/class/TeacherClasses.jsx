@@ -82,8 +82,8 @@ const TeacherClasses = () => {
 
   const postClasses = () => {
     let data = {
-      subject: subjectId,
-      teacher: teacherId,
+      subject: codeNameSubjectId,
+      teacher: codeNameTeacherId,
       midTerm: Number(midterm),
       practical: Number(practical),
       final: Number(final),

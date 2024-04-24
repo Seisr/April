@@ -26,6 +26,8 @@ const EditClass = () => {
   const [allTeacher, setAllTeacher] = useState([]);
   const [allSubjects, setAllSubjects] = useState([]);
   const [codeNameTeacherId, setCodeNameTeacherId] = useState("");
+  const [codeNameSubjectId, setCodeNameSubjectId] = useState("");
+
   const [value, setValue] = useState(null);
   const [isFocus, setIsFocus] = useState(false);
 
@@ -55,7 +57,7 @@ const EditClass = () => {
 
   useEffect(() => {
     retrieveClassesById(id);
-  });
+  }, []);
 
   const retrieveClassesById = (id) => {
     let filterRole = { role: "teacher" };
@@ -79,7 +81,9 @@ const EditClass = () => {
       .then((res) => {
         setClasses(res.data);
         setSubjectId(res.data.subject._id);
+        setCodeNameSubjectId(res.data.subject._id);
         setTeacherId(res.data.teacher._id);
+        setCodeNameTeacherId(res.data.teacher._id);
         setMidterm(res.data.midTerm);
         setPractical(res.data.practical);
         setFinal(res.data.final);
@@ -92,8 +96,8 @@ const EditClass = () => {
 
   const editClasses = () => {
     let data = {
-      subject: subjectId,
-      teacher: teacherId,
+      subject: codeNameSubjectId,
+      teacher: codeNameTeacherId,
       midTerm: Number(midterm),
       practical: Number(practical),
       final: Number(final),
@@ -152,7 +156,7 @@ const EditClass = () => {
                     onBlur={() => setIsFocus(false)}
                     onChange={(item) => {
                       setValue(item.value);
-                      setCodeNameTeacherId(item.value);
+                      setCodeNameSubjectId(item.value);
                       setIsFocus(false);
                     }}
                   />
