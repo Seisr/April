@@ -138,7 +138,7 @@ const TeacherClasses2 = () => {
       retrieveClasses();
     }, 2000);
     setUserId(userId1);
-  }, [userId]);
+  }, [classes, userId]);
 
   const deleteAlert = (id) => {
     Alert.alert("Delete", "Are you sure you want to delete this subject?", [
@@ -161,7 +161,7 @@ const TeacherClasses2 = () => {
                 <View style={styles.container}>
                   <View style={styles.row2}>
                     <Text style={styles.headerCell}>{course.codeName}</Text>
-                    <Text style={styles.headerCell}>{course.subject.name}</Text>
+                    {/* <Text style={styles.headerCell}>{course.subject.name}</Text> */}
                     {/* <Text style={styles.headerCell}>{course._id}</Text> */}
                     <View style={styles.row3}>
                       <Icon
@@ -174,20 +174,20 @@ const TeacherClasses2 = () => {
                           })
                         }
                       />
-                      {/* <Icon
+                      <Icon
                         name="create-outline"
                         style={styles.icon}
                         size={15}
                         onPress={() =>
                           navigation.navigate("EditClass", { id: course._id })
                         }
-                      /> */}
-                      {/* <Icon
+                      />
+                      <Icon
                         name="trash-bin-outline"
                         style={styles.icon}
                         size={15}
                         onPress={() => deleteAlert(course._id)}
-                      /> */}
+                      />
                     </View>
                   </View>
                 </View>
@@ -195,14 +195,147 @@ const TeacherClasses2 = () => {
             );
           })}
       </View>
-      {/*
       <Button style={styles.button}>
         <Text style={styles.buttonText} onPress={show}>
           Create New Class
         </Text>
       </Button>
-     
       <Modal
+        visible={modal}
+        animationType="slide"
+        presentationStyle="pageSheet"
+      >
+        <View>
+          <SafeAreaView>
+            <View style={styles.container}>
+              <View style={styles.borderBox}>
+                <Text style={styles.headerCell1}>Class</Text>
+                <View style={styles.modal}>
+                  <Text style={styles.headerCell2}>Subject</Text>
+                  {/* <TextInput
+                    placeholder="Subject"
+                    style={styles.textInput}
+                    onChangeText={setSubjectId}
+                  /> */}
+                  <View style={styles.modal}>
+                    {renderLabel1()}
+                    <Dropdown
+                      style={[
+                        styles.dropdown,
+                        isFocus1 && { borderColor: "blue" },
+                      ]}
+                      placeholderStyle={styles.placeholderStyle}
+                      selectedTextStyle={styles.selectedTextStyle}
+                      inputSearchStyle={styles.inputSearchStyle}
+                      iconStyle={styles.iconStyle}
+                      data={allSubjects}
+                      search
+                      maxHeight={300}
+                      labelField="label"
+                      valueField="value"
+                      placeholder={!isFocus1 ? "Select Subject" : "..."}
+                      searchPlaceholder="Search..."
+                      value={value1}
+                      onFocus={() => setIsFocus(true)}
+                      onBlur={() => setIsFocus(false)}
+                      onChange={(item) => {
+                        setValue(item.value);
+                        setCodeNameSubjectId(item.value);
+                        setIsFocus(false);
+                      }}
+                    />
+                  </View>
+                </View>
+                <View style={styles.modal}>
+                  <Text style={styles.headerCell2}>Teacher</Text>
+                  {/* <TextInput
+                    placeholder="Teacher"
+                    style={styles.textInput}
+                    onChangeText={setTeacherId}
+                  /> */}
+                  <View style={styles.modal}>
+                    {renderLabel()}
+                    <Dropdown
+                      style={[
+                        styles.dropdown,
+                        isFocus && { borderColor: "blue" },
+                      ]}
+                      placeholderStyle={styles.placeholderStyle}
+                      selectedTextStyle={styles.selectedTextStyle}
+                      inputSearchStyle={styles.inputSearchStyle}
+                      iconStyle={styles.iconStyle}
+                      data={allTeacher}
+                      search
+                      maxHeight={300}
+                      labelField="label"
+                      valueField="value"
+                      placeholder={!isFocus ? "Select Teacher" : "..."}
+                      searchPlaceholder="Search..."
+                      value={value}
+                      onFocus={() => setIsFocus(true)}
+                      onBlur={() => setIsFocus(false)}
+                      onChange={(item) => {
+                        setValue(item.value);
+                        setCodeNameTeacherId(item.value);
+                        setIsFocus(false);
+                      }}
+                    />
+                  </View>
+                </View>
+
+                <Text style={styles.headerCell1}>Score Weight</Text>
+                <View style={styles.modal}>
+                  <Text style={styles.headerCell}>Midterm </Text>
+                  <TextInput
+                    placeholder="0.2"
+                    style={styles.textInput}
+                    onChangeText={setMidterm}
+                  />
+                </View>
+                <View style={styles.modal}>
+                  <Text style={styles.headerCell}>Practical </Text>
+                  <TextInput
+                    placeholder="0.3"
+                    style={styles.textInput}
+                    onChangeText={setPractical}
+                  />
+                </View>
+                <View style={styles.modal}>
+                  <Text style={styles.headerCell}>Final </Text>
+                  <TextInput
+                    placeholder="0.5"
+                    style={styles.textInput}
+                    onChangeText={setFinal}
+                  />
+                </View>
+                <View style={styles.modal}>
+                  <Text style={styles.headerCell}>Reg End Date </Text>
+                  <TextInput
+                    placeholder="2024-05-30"
+                    style={styles.textInput}
+                    onChangeText={setRegEndDate}
+                  />
+                </View>
+              </View>
+              <View style={styles.modal}>
+                <Button style={styles.button} onPress={postClasses}>
+                  <Text style={styles.buttonText}>Create Class</Text>
+                </Button>
+                <Button style={styles.buttonCancel} onPress={hide}>
+                  <Text style={styles.buttonText}>Cancel</Text>
+                </Button>
+              </View>
+            </View>
+          </SafeAreaView>
+        </View>
+      </Modal>
+      {/* <Button style={styles.button}>
+        <Text style={styles.buttonText} onPress={show}>
+          Create New Class
+        </Text>
+      </Button> */}
+
+      {/* <Modal
         visible={modal}
         animationType="slide"
         presentationStyle="pageSheet"
@@ -244,7 +377,7 @@ const TeacherClasses2 = () => {
                       />
                     </View>
                   </View>
-                  {/* <View style={styles.modal}>
+                  <View style={styles.modal}>
                     {renderLabel1()}
                     <Dropdown
                       style={[
@@ -271,8 +404,8 @@ const TeacherClasses2 = () => {
                         setIsFocus(false);
                       }}
                     />
-                  </View> 
-                  // comment dừng ở đây
+                  </View>
+    
                 </View>
                 <View style={styles.modal}>
                   <Text style={styles.headerCell2}>Teacher</Text>
@@ -352,8 +485,7 @@ const TeacherClasses2 = () => {
             </View>
           </SafeAreaView>
         </View>
-      </Modal>
-    */}
+      </Modal> */}
     </SafeAreaView>
   );
 };
