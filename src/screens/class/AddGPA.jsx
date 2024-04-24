@@ -50,7 +50,7 @@ const AddGPA = () => {
               <Text style={styles.headerCell}>Midterm </Text>
               <TextInput
                 id="midterm"
-                placeholder="20%"
+                placeholder="9"
                 style={styles.textInput}
                 onChangeText={setMidterm}
               ></TextInput>
@@ -59,7 +59,7 @@ const AddGPA = () => {
               <Text style={styles.headerCell}>Practical </Text>
               <TextInput
                 id="practical"
-                placeholder="30%"
+                placeholder="9"
                 style={styles.textInput}
                 onChangeText={setPractical}
               ></TextInput>
@@ -68,7 +68,7 @@ const AddGPA = () => {
               <Text style={styles.headerCell}>Final </Text>
               <TextInput
                 id="final"
-                placeholder="50%"
+                placeholder="10"
                 style={styles.textInput}
                 onChangeText={setFinal}
               ></TextInput>

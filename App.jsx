@@ -42,8 +42,20 @@ export default function App() {
             header: () => <Header>Users</Header>,
           }}
         />
-        <Stack.Screen name="Subjects" component={Subjects} />
-        <Stack.Screen name="Classes" component={Classes} />
+        <Stack.Screen
+          name="Subjects"
+          component={Subjects}
+          options={{
+            header: () => <Header>Subjects</Header>,
+          }}
+        />
+        <Stack.Screen
+          name="Classes"
+          component={Classes}
+          options={{
+            header: () => <Header>Classes</Header>,
+          }}
+        />
         <Stack.Screen
           name="ModifyUsers"
           component={ModifyUsers}
@@ -51,16 +63,61 @@ export default function App() {
             header: () => <Header>Profile</Header>,
           }}
         />
-        <Stack.Screen name="TeacherClasses" component={TeacherClasses} />
-        <Stack.Screen name="StudentClasses" component={StudentClasses} />
-        <Stack.Screen name="AddStudent" component={AddStudent} />
-        <Stack.Screen name="AddGPA" component={AddGPA} />
-        <Stack.Screen name="EditClass" component={EditClass} />
-        <Stack.Screen name="CreateClass" component={CreateClass} />
-        <Stack.Screen name="EnrollCourses" component={EnrollCourses} />
+        <Stack.Screen
+          name="TeacherClasses"
+          component={TeacherClasses}
+          options={{
+            header: () => <Header>Classes</Header>,
+          }}
+        />
+        <Stack.Screen
+          name="StudentClasses"
+          component={StudentClasses}
+          options={{
+            header: () => <Header>Classes</Header>,
+          }}
+        />
+        <Stack.Screen
+          name="AddStudent"
+          component={AddStudent}
+          options={{
+            header: () => <Header>Classes</Header>,
+          }}
+        />
+        <Stack.Screen
+          name="AddGPA"
+          component={AddGPA}
+          options={{
+            header: () => <Header>Classes</Header>,
+          }}
+        />
+        <Stack.Screen
+          name="EditClass"
+          component={EditClass}
+          options={{
+            header: () => <Header>Classes</Header>,
+          }}
+        />
+        <Stack.Screen
+          name="CreateClass"
+          component={CreateClass}
+          options={{
+            header: () => <Header>Classes</Header>,
+          }}
+        />
+        <Stack.Screen
+          name="EnrollCourses"
+          component={EnrollCourses}
+          options={{
+            header: () => <Header>Classes</Header>,
+          }}
+        />
         <Stack.Screen
           name="EnrollCoursesDetail"
           component={EnrollCoursesDetail}
+          options={{
+            header: () => <Header>Classes</Header>,
+          }}
         />
       </Stack.Navigator>
     </NavigationContainer>
