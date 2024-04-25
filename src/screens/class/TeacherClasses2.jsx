@@ -95,6 +95,16 @@ const TeacherClasses2 = () => {
       setAllTeacher(temp);
     });
 
+    // AprilService.getAllClasses()
+    //   .then((res) => {
+    //     setClasses(res.data);
+    //   })
+    //   .catch((e) => {
+    //     console.log(e);
+    //   });
+  };
+
+  const retrieveSubjects = async () => {
     await AprilService.getAllSubjects().then((res) => {
       let temp = [];
       res.data.map((item) => {
@@ -103,14 +113,6 @@ const TeacherClasses2 = () => {
       setAllSubjects(temp);
       console.log(allSubjects);
     });
-
-    // AprilService.getAllClasses()
-    //   .then((res) => {
-    //     setClasses(res.data);
-    //   })
-    //   .catch((e) => {
-    //     console.log(e);
-    //   });
   };
 
   const postClasses = () => {
@@ -140,6 +142,9 @@ const TeacherClasses2 = () => {
     setUserId(userId1);
   }, [classes, userId]);
 
+  useEffect(() => {
+    retrieveSubjects();
+  }, []);
   const deleteAlert = (id) => {
     Alert.alert("Delete", "Are you sure you want to delete this subject?", [
       {

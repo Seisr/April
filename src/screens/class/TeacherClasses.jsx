@@ -13,6 +13,7 @@ import { AprilService } from "../../services/AprilServices";
 import Button from "../../components/Button.js";
 import { useNavigation } from "@react-navigation/native";
 import { Dropdown } from "react-native-element-dropdown";
+import { Context } from "../Main.jsx";
 
 const TeacherClasses = () => {
   const [classes, setClasses] = useState([]);
@@ -32,6 +33,11 @@ const TeacherClasses = () => {
 
   const [value1, setValue1] = useState(null);
   const [isFocus1, setIsFocus1] = useState(false);
+
+  // const [userId, setUserId] = useState(userId1);
+  // const { UID } = React.useContext(Context);
+  // const [userId1, setUserId1] = UID;
+  // console.log(` đây ${userId1}`);
 
   const show = () => setModal(true);
   const hide = () => setModal(false);
@@ -56,21 +62,6 @@ const TeacherClasses = () => {
 
   const retrieveClasses = () => {
     let filterRole = { role: "teacher" };
-    AprilService.getAllUsersByRole(filterRole).then((res) => {
-      let temp = [];
-      res.data.map((item) => {
-        temp.push({ label: item.displayName, value: item._id });
-      });
-      setAllTeacher(temp);
-    });
-
-    AprilService.getAllSubjects().then((res) => {
-      let temp = [];
-      res.data.map((item) => {
-        temp.push({ label: item.name, value: item._id });
-      });
-      setAllSubjects(temp);
-    });
     AprilService.getAllClasses()
       .then((res) => {
         setClasses(res.data);
@@ -78,6 +69,24 @@ const TeacherClasses = () => {
       .catch((e) => {
         console.log(e);
       });
+    AprilService.getAllUsersByRole(filterRole).then((res) => {
+      let temp = [];
+      res.data.map((item) => {
+        temp.push({ label: item.displayName, value: item._id });
+      });
+      setAllTeacher(temp);
+    });
+  };
+
+  const retrieveSubjects = async () => {
+    await AprilService.getAllSubjects().then((res) => {
+      let temp = [];
+      res.data.map((item) => {
+        temp.push({ label: item.name, value: item._id });
+      });
+      setAllSubjects(temp);
+      console.log(allSubjects);
+    });
   };
 
   const postClasses = () => {
@@ -101,8 +110,11 @@ const TeacherClasses = () => {
 
   useEffect(() => {
     retrieveClasses();
-  }, []);
+  }, [classes]);
 
+  useEffect(() => {
+    retrieveSubjects();
+  }, []);
   const deleteAlert = (id) => {
     Alert.alert("Delete", "Are you sure you want to delete this subject?", [
       {
