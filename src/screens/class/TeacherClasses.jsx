@@ -308,12 +308,6 @@ const TeacherClasses = () => {
 };
 
 const styles = StyleSheet.create({
-  // container: {
-  //   flex: 1,
-  //   backgroundColor: "#fff",
-  //   alignItems: "center",
-  //   justifyContent: "center",
-  // },
   modal: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -324,7 +318,6 @@ const styles = StyleSheet.create({
     alignItems: "flex-end",
   },
   container: {
-    // flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
@@ -352,35 +345,27 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     borderBottomWidth: 1,
     borderBottomColor: "#ccc",
-    // paddingVertical: 1,
   },
   row1: {
     flexDirection: "row",
-    // borderBottomWidth: 1,
     borderBottomColor: "#ccc",
-    // paddingVertical: 1,
   },
   row2: {
     flexDirection: "row",
     justifyContent: "space-between",
     borderBottomWidth: 1,
     borderBottomColor: "#ccc",
-    // paddingVertical: 1,
   },
   row3: {
     flexDirection: "row",
     justifyContent: "space-between",
     marginTop: 10,
-    // paddingVertical: 1,
   },
   gpa: {
     marginLeft: 15,
-    // paddingHorizontal: 1,
   },
   icon: {
     paddingLeft: 25,
-    // paddingTop: 20,
-    // marginRight: 5,
   },
   button: {
     backgroundColor: "#F7C613",
