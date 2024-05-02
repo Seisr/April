@@ -16,6 +16,7 @@ import { user as userKey } from "../../../setting";
 import { AprilService } from "../../services/AprilServices";
 import { Picker } from "@react-native-picker/picker";
 import { useNavigation } from "@react-navigation/native";
+import * as ImagePicker from "expo-image-picker";
 
 const ModifyUsers = ({ route }) => {
   const navigation = useNavigation();
@@ -31,7 +32,6 @@ const ModifyUsers = ({ route }) => {
   const [displayName, setDisplayName] = useState("");
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
-  //   const [role, setRole] = useState("");
   const [currUser, setCurrUser] = useState(null);
   const [noti, setNoti] = useState("");
   const [error, setError] = useState("");
@@ -55,6 +55,7 @@ const ModifyUsers = ({ route }) => {
     let res = {};
     if (_type == "profile") {
       res = await AprilService.getMe();
+      await SecureStore.setItemAsync(userKey, JSON.stringify(res.data));
     } else {
       res = await AprilService.getUserById(user._id);
     }
@@ -150,6 +151,22 @@ const ModifyUsers = ({ route }) => {
       },
     ]);
 
+  const handleChangeAvt = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    if (!result.cancelled) {
+      const asset = result.assets[0];
+      await AprilService.uploadImage(result.assets[0]);
+      setImage(asset.uri);
+      setAvatarUri(asset.uri);
+    }
+  };
+
   const RightButton = () => {
     if (_type != "profile")
       return (
@@ -172,14 +189,16 @@ const ModifyUsers = ({ route }) => {
   const RoleElement = () => {
     if (_type == "profile") {
       return (
-        <TextInput
-          style={[styles.input, { marginBottom: 20 }]}
-          placeholder="Role"
-          value={
-            selectedRole &&
-            roleList.filter((x) => x.value == selectedRole)[0].label
-          }
-        />
+        <View style={styles.containerRight}>
+          <BaseTextInput
+            style={[styles.input, { marginBottom: 20 }]}
+            placeholder="Role"
+            value={
+              selectedRole &&
+              roleList.filter((x) => x.value == selectedRole)[0].label
+            }
+          />
+        </View>
       );
     }
     return (
@@ -238,28 +257,41 @@ const ModifyUsers = ({ route }) => {
     >
       <View style={styles.container}>
         <View style={styles.containerCodeName}>
-          <Image style={styles.image} source={{ uri: image }} />
+          <TouchableOpacity onPress={handleChangeAvt}>
+            <Image style={styles.image} source={{ uri: image }} />
+          </TouchableOpacity>
           <Text style={styles.codeName}>{user.codeName}</Text>
         </View>
         <View style={styles.containerInput}>
-          <Text style={styles.title}>Email</Text>
-          <TextInput
-            style={[styles.input, { marginTop: 20 }]}
-            placeholder="Email"
-            value={email}
-          />
+          <View style={styles.containerLeft}>
+            <Text style={styles.title}>Email</Text>
+          </View>
+          <View style={styles.containerRight}>
+            <BaseTextInput
+              placeholder="Email"
+              style={styles.input}
+              value={email}
+              editable={false}
+            />
+          </View>
         </View>
         <View style={styles.containerInput}>
-          <Text style={styles.title}>Name</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Display Name"
-            value={displayName}
-            onChangeText={setDisplayName}
-          />
+          <View style={styles.containerLeft}>
+            <Text style={styles.title}>Name</Text>
+          </View>
+          <View style={styles.containerRight}>
+            <BaseTextInput
+              style={styles.input}
+              placeholder="Display Name"
+              value={displayName}
+              onChangeText={setDisplayName}
+            />
+          </View>
         </View>
         <View style={styles.containerInput}>
-          <Text style={styles.title}>{"Role  "}</Text>
+          <View style={styles.containerLeft}>
+            <Text style={styles.title}>Role</Text>
+          </View>
           <RoleElement />
         </View>
       </View>
@@ -379,9 +411,11 @@ const styles = StyleSheet.create({
     height: 30,
     borderWidth: 1,
     borderColor: "#F2BA1D",
+    backgroundColor: "white",
     borderRadius: 5,
-    paddingTop: 10,
-    paddingBottom: 40,
+    marginTop: 20,
+    fontSize: 18,
+    padding: 20,
   },
   containerInput: {
     flexDirection: "row",
@@ -493,6 +527,8 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginBottom: 20,
     backgroundColor: "#FFFFFF",
+    flex: "80%",
+    marginTop: 20,
   },
   containerSignOut: {
     flexDirection: "row",
@@ -507,6 +543,15 @@ const styles = StyleSheet.create({
   signOutText: {
     fontWeight: "500",
     color: "#6F6F70",
+  },
+
+  containerLeft: {
+    flex: "20%",
+    paddingTop: 20,
+  },
+
+  containerRight: {
+    flex: "80%",
   },
 });
 

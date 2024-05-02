@@ -11,6 +11,11 @@ import { useNavigation } from "@react-navigation/native";
 export const Header = ({ mode, ...props }) => {
   const navigation = useNavigation();
   const [image, setImage] = React.useState(null);
+  const listImg = {
+    admin: require("../assets/others/admin.png"),
+    student: require("../assets/others/student.png"),
+    teacher: require("../assets/others/teacher.png"),
+  };
   const [currentUser, setUser] = React.useState(null);
   React.useEffect(() => {
     pickImage();
@@ -18,7 +23,7 @@ export const Header = ({ mode, ...props }) => {
   // Function to pick profile image
   const pickImage = async () => {
     const currUser = JSON.parse(await SecureStore.getItemAsync(user));
-    setImage(currUser.image);
+    setImage(listImg[currUser.role]);
     setUser(currUser);
   };
 
@@ -63,7 +68,7 @@ export const Header = ({ mode, ...props }) => {
         <TouchableOpacity onPress={handleProfile}>
           <Image
             style={{ width: 50, height: 50, marginTop: 25, marginRight: 40 }}
-            source={{ uri: image }}
+            source={image}
           />
         </TouchableOpacity>
       )}
