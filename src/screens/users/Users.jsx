@@ -74,11 +74,20 @@ const Users = ({}) => {
   useEffect(() => {
     isFocused && getUserList();
   }, [isFocused]);
+
   const getUserList = async () => {
     setUsers((await AprilService.getAllUsers()).data);
   };
   const handleCreateNewUser = async () => {
     try {
+      if (!email) {
+        setError("Email is required.");
+        return;
+      } else if (!/\S+@\S+\.\S+/.test(email)) {
+        setError("Email is invalid.");
+        return;
+      }
+
       await AprilService.postUser({
         email,
         displayName,
@@ -89,7 +98,7 @@ const Users = ({}) => {
       getUserList();
     } catch (error) {
       console.log(error);
-      setError("Username already exists !");
+      setError("Email already exists !");
       setNoti("");
     }
   };
@@ -217,6 +226,8 @@ const Users = ({}) => {
                 style={styles.buttonCancel}
                 onPress={() => {
                   setModal(false);
+                  setError("");
+                  setNoti("");
                 }}
               >
                 <Text style={styles.buttonText}>Done</Text>

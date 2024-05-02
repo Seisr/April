@@ -170,4 +170,29 @@ export const AprilService = {
       }
     );
   },
+  uploadImage: async (image) => {
+    try {
+      let formData = new FormData();
+      formData.append("file", {
+        uri: image.uri,
+        name: `${image.uri.split("/").at(-1)}`,
+        type: image.mimeType,
+      });
+
+      const response = await axios.patch(
+        `${beHOST}/users/me/image/`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            ...(await get_header()),
+          },
+        }
+      );
+
+      console.log("Upload successful:", response.data);
+    } catch (error) {
+      console.error("Upload failed:", error);
+    }
+  },
 };

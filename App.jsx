@@ -12,7 +12,7 @@ import EnrollCourses from "./src/screens/class/EnrollCourses";
 import TeacherClasses from "./src/screens/class/TeacherClasses";
 import EnrollCoursesDetail from "./src/screens/class/EnrollCoursesDetail";
 import AddStudent from "./src/screens/class/AddStudent";
-import { Header, MainHeader } from "./src/components/PageHeader";
+import { Header } from "./src/components/PageHeader";
 import StudentClasses from "./src/screens/class/StudentClasses";
 import ModifyUsers from "./src/screens/users/ModifyUsers";
 import EditClass from "./src/screens/class/EditClass";
