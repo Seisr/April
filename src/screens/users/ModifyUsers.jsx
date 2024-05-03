@@ -47,8 +47,8 @@ const ModifyUsers = ({ route }) => {
     if (user) {
       getCurrentUser(user);
     }
-    if (_type == "profile") {
-    }
+    setNoti("");
+    setError("");
   }, []);
 
   const getCurrentUser = async () => {
@@ -152,6 +152,9 @@ const ModifyUsers = ({ route }) => {
     ]);
 
   const handleChangeAvt = async () => {
+    if (_type != "profile") {
+      return;
+    }
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
@@ -197,6 +200,7 @@ const ModifyUsers = ({ route }) => {
               selectedRole &&
               roleList.filter((x) => x.value == selectedRole)[0].label
             }
+            editable={false}
           />
         </View>
       );
@@ -407,15 +411,14 @@ const styles = StyleSheet.create({
     color: "#FFFFFF",
   },
   input: {
-    flex: 1,
-    height: 30,
+    height: 40,
     borderWidth: 1,
     borderColor: "#F2BA1D",
     backgroundColor: "white",
     borderRadius: 5,
     marginTop: 20,
     fontSize: 18,
-    padding: 20,
+    paddingLeft: 10,
   },
   containerInput: {
     flexDirection: "row",
@@ -452,7 +455,7 @@ const styles = StyleSheet.create({
   containerButton: {
     flexDirection: "row",
     padding: 10,
-    marginTop: 30,
+    marginTop: 10,
   },
   changePassText: {
     color: "#FFFFFF",
@@ -532,7 +535,7 @@ const styles = StyleSheet.create({
   },
   containerSignOut: {
     flexDirection: "row",
-    marginTop: 40,
+    marginTop: 120,
     marginLeft: 250,
     alignContent: "center",
   },
